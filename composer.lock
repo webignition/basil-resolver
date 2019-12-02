@@ -4,62 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77ea8544d243fc0a05ae1966567a4d52",
+    "content-hash": "ad72824e7c4797b5f906281727162711",
     "packages": [
         {
-            "name": "webignition/basil-data-structures",
-            "version": "0.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/basil-data-structures.git",
-                "reference": "b5b37550c3182e001c77b12d882b0a312190858a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-data-structures/zipball/b5b37550c3182e001c77b12d882b0a312190858a",
-                "reference": "b5b37550c3182e001c77b12d882b0a312190858a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
-                "phpunit/phpunit": "~8.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "webignition\\BasilDataStructure\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "webignition@gmail.com"
-                }
-            ],
-            "description": "Data structures for basil language",
-            "homepage": "https://github.com/webignition/basil-data-structures",
-            "time": "2019-11-29T10:07:12+00:00"
-        },
-        {
             "name": "webignition/basil-models",
-            "version": "0.1",
+            "version": "0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "21b8b6c654e8f8d45cba2e6cd1bf11354b2906f4"
+                "reference": "c8768c0f7a11498c18abbc1e9811fcb9a06be096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/21b8b6c654e8f8d45cba2e6cd1bf11354b2906f4",
-                "reference": "21b8b6c654e8f8d45cba2e6cd1bf11354b2906f4",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/c8768c0f7a11498c18abbc1e9811fcb9a06be096",
+                "reference": "c8768c0f7a11498c18abbc1e9811fcb9a06be096",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +45,93 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2019-11-29T15:41:16+00:00"
+            "time": "2019-12-02T12:11:44+00:00"
+        },
+        {
+            "name": "webignition/php-basil-context-aware-exception",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/php-basil-context-aware-exception.git",
+                "reference": "c1435f31a79191748f90e091775dbb278510ee41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/php-basil-context-aware-exception/zipball/c1435f31a79191748f90e091775dbb278510ee41",
+                "reference": "c1435f31a79191748f90e091775dbb278510ee41",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.5",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\BasilContextAwareException\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "description": "Models for basil language objects",
+            "homepage": "https://github.com/webignition/php-basil-context-aware-exception",
+            "time": "2019-07-13T14:46:44+00:00"
+        },
+        {
+            "name": "webignition/php-basil-model-provider",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/php-basil-model-provider.git",
+                "reference": "57223a3daa7b924df9d40821bdd4e2de41c189a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/php-basil-model-provider/zipball/57223a3daa7b924df9d40821bdd4e2de41c189a5",
+                "reference": "57223a3daa7b924df9d40821bdd4e2de41c189a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "webignition/basil-models": ">=0.3,<1",
+                "webignition/php-basil-context-aware-exception": ">=0.1,<1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.5",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\BasilModelProvider\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "description": "Providers for basil models",
+            "homepage": "https://github.com/webignition/php-basil-model-provider",
+            "time": "2019-12-02T11:57:51+00:00"
         }
     ],
     "packages-dev": [
