@@ -10,22 +10,20 @@ use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertionInterface;
-use webignition\BasilModels\ElementReference\ElementReference;
-use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class AssertionResolver
 {
-    private $pageElementReferenceResolver;
+    private $elementResolver;
 
-    public function __construct(PageElementReferenceResolver $pageElementReferenceResolver)
+    public function __construct(ElementResolver $elementResolver)
     {
-        $this->pageElementReferenceResolver = $pageElementReferenceResolver;
+        $this->elementResolver = $elementResolver;
     }
 
     public static function createResolver(): AssertionResolver
     {
         return new AssertionResolver(
-            PageElementReferenceResolver::createResolver()
+            ElementResolver::createResolver()
         );
     }
 
@@ -46,7 +44,7 @@ class AssertionResolver
         IdentifierProviderInterface $identifierProvider
     ): AssertionInterface {
         $identifier = $assertion->getIdentifier();
-        $resolvedIdentifier = $this->resolveValue($identifier, $pageProvider, $identifierProvider);
+        $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
 
         if ($resolvedIdentifier !== $identifier) {
             $assertion = $assertion->withIdentifier($resolvedIdentifier);
@@ -54,7 +52,7 @@ class AssertionResolver
 
         if ($assertion instanceof ComparisonAssertionInterface) {
             $value = $assertion->getValue();
-            $resolvedValue = $this->resolveValue($value, $pageProvider, $identifierProvider);
+            $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             if ($resolvedValue !== $value) {
                 $assertion = $assertion->withValue($resolvedValue);
@@ -62,32 +60,5 @@ class AssertionResolver
         }
 
         return $assertion;
-    }
-
-    /**
-     * @param string $value
-     * @param PageProviderInterface $pageProvider
-     * @param IdentifierProviderInterface $identifierProvider
-     *
-     * @return string
-     *
-     * @throws UnknownIdentifierException
-     * @throws UnknownPageElementException
-     * @throws UnknownPageException
-     */
-    private function resolveValue(
-        string $value,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider
-    ): string {
-        if (ElementReference::is($value)) {
-            return $identifierProvider->findIdentifier((new ElementReference($value))->getElementName());
-        }
-
-        if (PageElementReference::is($value)) {
-            return $this->pageElementReferenceResolver->resolve($value, $pageProvider);
-        }
-
-        return $value;
     }
 }
