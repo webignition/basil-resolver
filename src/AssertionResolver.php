@@ -46,16 +46,7 @@ class AssertionResolver
         IdentifierProviderInterface $identifierProvider
     ): AssertionInterface {
         $identifier = $assertion->getIdentifier();
-        $resolvedIdentifier = $identifier;
-
-        if (ElementReference::is($identifier)) {
-            $elementReference = new ElementReference($identifier);
-            $resolvedIdentifier = $identifierProvider->findIdentifier($elementReference->getElementName());
-        }
-
-        if (PageElementReference::is($identifier)) {
-            $resolvedIdentifier = $this->pageElementReferenceResolver->resolve($identifier, $pageProvider);
-        }
+        $resolvedIdentifier = $this->resolveValue($identifier, $pageProvider, $identifierProvider);
 
         if ($resolvedIdentifier !== $identifier) {
             $assertion = $assertion->withIdentifier($resolvedIdentifier);
@@ -63,16 +54,7 @@ class AssertionResolver
 
         if ($assertion instanceof ComparisonAssertionInterface) {
             $value = $assertion->getValue();
-            $resolvedValue = $value;
-
-            if (ElementReference::is($value)) {
-                $elementReference = new ElementReference($value);
-                $resolvedValue = $identifierProvider->findIdentifier($elementReference->getElementName());
-            }
-
-            if (PageElementReference::is($value)) {
-                $resolvedValue = $this->pageElementReferenceResolver->resolve($value, $pageProvider);
-            }
+            $resolvedValue = $this->resolveValue($value, $pageProvider, $identifierProvider);
 
             if ($resolvedValue !== $value) {
                 $assertion = $assertion->withValue($resolvedValue);
@@ -80,5 +62,32 @@ class AssertionResolver
         }
 
         return $assertion;
+    }
+
+    /**
+     * @param string $value
+     * @param PageProviderInterface $pageProvider
+     * @param IdentifierProviderInterface $identifierProvider
+     *
+     * @return string
+     *
+     * @throws UnknownIdentifierException
+     * @throws UnknownPageElementException
+     * @throws UnknownPageException
+     */
+    private function resolveValue(
+        string $value,
+        PageProviderInterface $pageProvider,
+        IdentifierProviderInterface $identifierProvider
+    ): string {
+        if (ElementReference::is($value)) {
+            return $identifierProvider->findIdentifier((new ElementReference($value))->getElementName());
+        }
+
+        if (PageElementReference::is($value)) {
+            return $this->pageElementReferenceResolver->resolve($value, $pageProvider);
+        }
+
+        return $value;
     }
 }
