@@ -41,7 +41,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'resolvable' => [
-                'pageElementReference' => 'page_import_name.elements.element_name',
+                'pageElementReference' => '$page_import_name.elements.element_name',
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
                         'http://example.com/',
@@ -73,7 +73,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'element not present in page' => [
-                'pageElementReference' => 'page_import_name.elements.element_name',
+                'pageElementReference' => '$page_import_name.elements.element_name',
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page('http://example.com/')
                 ]),
