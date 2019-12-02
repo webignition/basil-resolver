@@ -18,6 +18,7 @@ class PageElementReferenceResolver
     /**
      * @param string $pageElementReference
      * @param PageProviderInterface $pageProvider
+     *
      * @return string
      *
      * @throws UnknownPageElementException
@@ -27,7 +28,7 @@ class PageElementReferenceResolver
         string $pageElementReference,
         PageProviderInterface $pageProvider
     ): string {
-        $model = new PageElementReference($pageElementReference);
+        $model = new PageElementReference(ltrim($pageElementReference, '$'));
 
         $page = $pageProvider->findPage($model->getImportName());
         $identifier = $page->getIdentifier($model->getElementName());
