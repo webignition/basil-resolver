@@ -33,7 +33,7 @@
     },
     "require": {
         "php": ">=7.2",
-        "webignition/basil-models": ">=0.7,<1",
+        "webignition/basil-models": ">=0.8,<1",
         "webignition/php-basil-model-provider": ">=0.4,<1"
     },
     "require-dev": {
