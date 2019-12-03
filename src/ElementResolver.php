@@ -8,6 +8,7 @@ use webignition\BasilModelProvider\Exception\UnknownIdentifierException;
 use webignition\BasilModelProvider\Exception\UnknownPageException;
 use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModels\AttributeReference\AttributeReference;
 use webignition\BasilModels\ElementReference\ElementReference;
 use webignition\BasilModels\PageElementReference\PageElementReference;
 
@@ -34,7 +35,7 @@ class ElementResolver
      *
      * @return string
      *
-     * @throws UnknownIdentifierException
+     * @throws UnknownElementException
      * @throws UnknownPageElementException
      * @throws UnknownPageException
      */
@@ -43,8 +44,19 @@ class ElementResolver
         PageProviderInterface $pageProvider,
         IdentifierProviderInterface $identifierProvider
     ): string {
-        if (ElementReference::is($value)) {
-            return $identifierProvider->findIdentifier((new ElementReference($value))->getElementName());
+        try {
+            if (ElementReference::is($value)) {
+                return $identifierProvider->findIdentifier((new ElementReference($value))->getElementName());
+            }
+
+            if (AttributeReference::is($value)) {
+                $attributeReference = new AttributeReference($value);
+                $identifier = $identifierProvider->findIdentifier($attributeReference->getElementName());
+
+                return $identifier . '.' . $attributeReference->getAttributeName();
+            }
+        } catch (UnknownIdentifierException $unknownIdentifierException) {
+            throw new UnknownElementException($unknownIdentifierException->getName());
         }
 
         if (PageElementReference::is($value)) {
