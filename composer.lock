@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "178d1e0880262ff7e4712e1396003991",
+    "content-hash": "d86011192eb77fd00ed4caa7ef7bc416",
     "packages": [
         {
             "name": "webignition/basil-models",
-            "version": "0.8",
+            "version": "0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "f2f7f38e089fa9b55ef19f47cd78d4e8a05f744a"
+                "reference": "58d591a042c3831f65585d60694611ad94353d2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/f2f7f38e089fa9b55ef19f47cd78d4e8a05f744a",
-                "reference": "f2f7f38e089fa9b55ef19f47cd78d4e8a05f744a",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/58d591a042c3831f65585d60694611ad94353d2e",
+                "reference": "58d591a042c3831f65585d60694611ad94353d2e",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2019-12-02T18:15:54+00:00"
+            "time": "2019-12-03T15:55:57+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",

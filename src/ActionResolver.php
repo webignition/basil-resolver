@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\Exception\UnknownIdentifierException;
 use webignition\BasilModelProvider\Exception\UnknownPageException;
 use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\PageProviderInterface;
@@ -35,9 +34,9 @@ class ActionResolver
      *
      * @return ActionInterface
      *
+     * @throws UnknownElementException
      * @throws UnknownPageElementException
      * @throws UnknownPageException
-     * @throws UnknownIdentifierException
      */
     public function resolve(
         ActionInterface $action,
