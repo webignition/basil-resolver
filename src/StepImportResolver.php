@@ -20,7 +20,7 @@ class StepImportResolver
     /**
      * @param StepInterface $step
      * @param StepProviderInterface $stepProvider
-     * @param array $handledImportNames
+     * @param string[] $handledImportNames
      *
      * @return StepInterface
      *
