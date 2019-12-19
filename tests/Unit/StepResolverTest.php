@@ -102,6 +102,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'examined' => '$".examined"',
@@ -125,6 +126,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'expected' => '$".expected"',
@@ -148,6 +150,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'examined' => '$".examined"',
@@ -170,6 +173,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'expected' => '$".expected"',
@@ -377,6 +381,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'page_element_name' => '$".resolved"',
@@ -402,6 +407,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com/',
                         [
                             'page_element_name' => '$".resolved"',
@@ -460,7 +466,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com/'),
+                    'page_import_name' => new Page('page_import_name', 'http://example.com/'),
                 ]),
                 'expectedException' => $this->applyContentToException(
                     new UnknownPageElementException('page_import_name', 'element_name'),
@@ -474,7 +480,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com/'),
+                    'page_import_name' => new Page('page_import_name', 'http://example.com/'),
                 ]),
                 'expectedException' => $this->applyContentToException(
                     new UnknownPageElementException('page_import_name', 'element_name'),

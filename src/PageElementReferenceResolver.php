@@ -10,9 +10,18 @@ use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class PageElementReferenceResolver
 {
+    private $pageResolver;
+
+    public function __construct(PageResolver $pageResolver)
+    {
+        $this->pageResolver = $pageResolver;
+    }
+
     public static function createResolver(): PageElementReferenceResolver
     {
-        return new PageElementReferenceResolver();
+        return new PageElementReferenceResolver(
+            PageResolver::createResolver()
+        );
     }
 
     /**
@@ -31,6 +40,8 @@ class PageElementReferenceResolver
         $model = new PageElementReference(ltrim($pageElementReference, '$'));
 
         $page = $pageProvider->findPage($model->getImportName());
+        $page = $this->pageResolver->resolve($page);
+
         $identifier = $page->getIdentifier($model->getElementName());
 
         if (is_string($identifier)) {

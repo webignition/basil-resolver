@@ -60,7 +60,7 @@ class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
             'well-formed page url reference' => [
                 'configuration' => new Configuration('chrome', 'page_import_name.url'),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://page.example.com/'),
+                    'page_import_name' => new Page('page_import_name', 'http://page.example.com/'),
                 ]),
                 'expectedConfiguration' => new Configuration('chrome', 'http://page.example.com/'),
             ],
