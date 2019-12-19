@@ -17,6 +17,12 @@ use webignition\BasilModels\Assertion\ComparisonAssertion;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
+use webignition\BasilParser\Exception\EmptyActionException;
+use webignition\BasilParser\Exception\EmptyAssertionComparisonException;
+use webignition\BasilParser\Exception\EmptyAssertionException;
+use webignition\BasilParser\Exception\EmptyAssertionIdentifierException;
+use webignition\BasilParser\Exception\EmptyAssertionValueException;
+use webignition\BasilParser\Exception\EmptyInputActionValueException;
 use webignition\BasilParser\StepParser;
 use webignition\BasilResolver\StepResolver;
 use webignition\BasilResolver\UnknownElementException;
@@ -526,6 +532,18 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @param array<mixed> $stepData
+     *
+     * @return StepInterface
+     *
+     * @throws EmptyActionException
+     * @throws EmptyAssertionComparisonException
+     * @throws EmptyAssertionException
+     * @throws EmptyAssertionIdentifierException
+     * @throws EmptyAssertionValueException
+     * @throws EmptyInputActionValueException
+     */
     private function createStep(array $stepData): StepInterface
     {
         return (StepParser::create())->parse($stepData);
