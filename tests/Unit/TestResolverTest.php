@@ -149,7 +149,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com/'),
+                    'page_import_name' => new Page('page_import_name', 'http://example.com/'),
                 ]),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
@@ -217,6 +217,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'action_selector' => '$".action-selector"',
@@ -296,6 +297,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'page_action_selector' => '$".action-selector"',
@@ -408,6 +410,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'action_selector' => '$".action-selector"',
@@ -462,6 +465,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'action_selector' => '$".action-selector"',
@@ -637,7 +641,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com')
+                    'page_import_name' => new Page('page_import_name', 'http://example.com')
                 ]),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
@@ -658,7 +662,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com')
+                    'page_import_name' => new Page('page_import_name', 'http://example.com')
                 ]),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
@@ -680,7 +684,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
-                    'page_import_name' => new Page('http://example.com')
+                    'page_import_name' => new Page('page_import_name', 'http://example.com')
                 ]),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),

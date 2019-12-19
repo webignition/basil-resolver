@@ -94,6 +94,7 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'assertion' => $assertionParser->parse('$page_import_name.elements.element_name exists'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".selector"',
@@ -124,6 +125,7 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'assertion' => $assertionParser->parse('$page_import_name.elements.element_name is "value"'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".selector"',
@@ -155,6 +157,7 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'assertion' => $assertionParser->parse('$".selector" is $page_import_name.elements.element_name'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".resolved"',
@@ -189,6 +192,7 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 ),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_one' => '$".one"',

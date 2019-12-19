@@ -95,6 +95,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'action' => $actionParser->parse('click $page_import_name.elements.element_name'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".selector"',
@@ -126,6 +127,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'action' => $actionParser->parse('set $page_import_name.elements.element_name to "value"'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".selector"',
@@ -157,6 +159,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'action' => $actionParser->parse('set $".selector" to $page_import_name.elements.element_name'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_name' => '$".resolved"',
@@ -191,6 +194,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 ),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
+                        'page_import_name',
                         'http://example.com',
                         [
                             'element_one' => '$".one"',

@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "debc7ec7f1f7355a25630ffdbd20abd1",
+    "content-hash": "a2b3fe5dcfdf1e0a108d49662d80b260",
     "packages": [
         {
             "name": "webignition/basil-models",
-            "version": "0.14",
+            "version": "0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "ddf0bf274448786a8c041996c996b3410eb68c3a"
+                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/ddf0bf274448786a8c041996c996b3410eb68c3a",
-                "reference": "ddf0bf274448786a8c041996c996b3410eb68c3a",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
+                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
+                "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "~8.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -45,7 +45,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2019-12-03T19:10:17+00:00"
+            "time": "2019-12-19T15:51:58+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
@@ -2862,26 +2862,26 @@
         },
         {
             "name": "webignition/basil-parser",
-            "version": "0.7",
+            "version": "0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-parser.git",
-                "reference": "aa945a6d20aba0357b53fc6415d6fccccc07e810"
+                "reference": "f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/aa945a6d20aba0357b53fc6415d6fccccc07e810",
-                "reference": "aa945a6d20aba0357b53fc6415d6fccccc07e810",
+                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda",
+                "reference": "f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=7.2",
-                "webignition/basil-models": ">=0.3,<1",
+                "webignition/basil-models": ">=0.19,<1",
                 "webignition/php-path-resolver": ">=0.1,<1"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
+                "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "~8.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
@@ -2903,7 +2903,7 @@
             ],
             "description": "Parses raw basil data into basic data structures",
             "homepage": "https://github.com/webignition/basil-parser",
-            "time": "2019-11-29T18:18:06+00:00"
+            "time": "2019-12-19T15:32:55+00:00"
         },
         {
             "name": "webignition/php-path-resolver",
