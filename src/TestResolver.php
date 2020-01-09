@@ -97,6 +97,13 @@ class TestResolver
             }
         }
 
-        return new Test($testName, $configuration, $resolvedSteps);
+        $resolvedTest = new Test($configuration, $resolvedSteps);
+        $testPath = $test->getPath();
+
+        if (null !== $testPath) {
+            $resolvedTest = $resolvedTest->withPath($testPath);
+        }
+
+        return $resolvedTest;
     }
 }
