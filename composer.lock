@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2b3fe5dcfdf1e0a108d49662d80b260",
+    "content-hash": "a6b30c3888bdcc961bd8f7f6ec298c7b",
     "packages": [
         {
             "name": "webignition/basil-models",
-            "version": "0.24",
+            "version": "0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0"
+                "reference": "440fa7a2120cf431d55097bf5fa5d501b69e7dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
-                "reference": "ba651c93928294b9a0569f2b3cbd6b9a9c4a9ef0",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/440fa7a2120cf431d55097bf5fa5d501b69e7dc5",
+                "reference": "440fa7a2120cf431d55097bf5fa5d501b69e7dc5",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2019-12-19T15:51:58+00:00"
+            "time": "2020-01-09T13:02:43+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
@@ -2861,23 +2861,68 @@
             "time": "2019-06-13T22:48:21+00:00"
         },
         {
-            "name": "webignition/basil-parser",
-            "version": "0.12",
+            "name": "webignition/basil-dom-identifier-factory",
+            "version": "0.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webignition/basil-parser.git",
-                "reference": "f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda"
+                "url": "https://github.com/webignition/basil-dom-identifier-factory.git",
+                "reference": "e25041c25415940021702d8b8d233326df88129f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda",
-                "reference": "f4ac1737b039ce12b54945e1b9f5f9b0a9c0bfda",
+                "url": "https://api.github.com/repos/webignition/basil-dom-identifier-factory/zipball/e25041c25415940021702d8b8d233326df88129f",
+                "reference": "e25041c25415940021702d8b8d233326df88129f",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=7.2",
-                "webignition/basil-models": ">=0.19,<1",
+                "webignition/php-dom-element-identifier": ">=0.6,<1",
+                "webignition/quoted-string-value-extractor": ">=0.1,<1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\BasilDomIdentifierFactory\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "homepage": "https://github.com/webignition/basil-dom-identifier-factory",
+            "time": "2020-01-07T19:31:36+00:00"
+        },
+        {
+            "name": "webignition/basil-parser",
+            "version": "0.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/basil-parser.git",
+                "reference": "203c1250e43a47af2956c00ba37bbc38390e4dfd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/203c1250e43a47af2956c00ba37bbc38390e4dfd",
+                "reference": "203c1250e43a47af2956c00ba37bbc38390e4dfd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.2",
+                "webignition/basil-dom-identifier-factory": ">=0.6,<1",
+                "webignition/basil-models": ">=0.25,<1",
                 "webignition/php-path-resolver": ">=0.1,<1"
             },
             "require-dev": {
@@ -2903,7 +2948,92 @@
             ],
             "description": "Parses raw basil data into basic data structures",
             "homepage": "https://github.com/webignition/basil-parser",
-            "time": "2019-12-19T15:32:55+00:00"
+            "time": "2020-01-09T13:20:45+00:00"
+        },
+        {
+            "name": "webignition/php-dom-element-identifier",
+            "version": "0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/php-dom-element-identifier.git",
+                "reference": "fcb502c1fc4377a50172d108c63444db86eca188"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-identifier/zipball/fcb502c1fc4377a50172d108c63444db86eca188",
+                "reference": "fcb502c1fc4377a50172d108c63444db86eca188",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2",
+                "webignition/php-dom-element-locator": ">=0.2,<1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\DomElementIdentifier\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "homepage": "https://github.com/webignition/php-dom-element-identifier",
+            "time": "2019-12-31T08:39:47+00:00"
+        },
+        {
+            "name": "webignition/php-dom-element-locator",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/php-dom-element-locator.git",
+                "reference": "5f86d51d0a40fc7e8817d229adfbd33106010a63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-locator/zipball/5f86d51d0a40fc7e8817d229adfbd33106010a63",
+                "reference": "5f86d51d0a40fc7e8817d229adfbd33106010a63",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\DomElementLocator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "description": "Model for identifying the location of an element within a DOM",
+            "homepage": "https://github.com/webignition/php-dom-element-locator",
+            "time": "2019-12-18T15:59:38+00:00"
         },
         {
             "name": "webignition/php-path-resolver",
@@ -2951,6 +3081,47 @@
                 "resolver"
             ],
             "time": "2019-11-22T15:49:36+00:00"
+        },
+        {
+            "name": "webignition/quoted-string-value-extractor",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/quoted-string-value-extractor.git",
+                "reference": "b5283c7818a9e73cf14f48714d3754c88b8f5bcb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/quoted-string-value-extractor/zipball/b5283c7818a9e73cf14f48714d3754c88b8f5bcb",
+                "reference": "b5283c7818a9e73cf14f48714d3754c88b8f5bcb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\QuotedStringValueExtractor\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "homepage": "https://github.com/webignition/quoted-string-value-extractor",
+            "time": "2019-12-29T12:17:17+00:00"
         },
         {
             "name": "webmozart/assert",
