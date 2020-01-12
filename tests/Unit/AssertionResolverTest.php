@@ -6,10 +6,9 @@ namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\Identifier\EmptyIdentifierProvider;
 use webignition\BasilModelProvider\Identifier\IdentifierProvider;
-use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertion;
@@ -64,8 +63,8 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveIsResolved(
         AssertionInterface $assertion,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider,
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider,
         AssertionInterface $expectedAssertion
     ) {
         $resolvedAssertion = $this->resolver->resolve($assertion, $pageProvider, $identifierProvider);

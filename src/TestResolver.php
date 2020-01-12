@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilResolver;
 
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
-use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
-use webignition\BasilModelProvider\Exception\UnknownDataProviderException;
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Exception\UnknownStepException;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
-use webignition\BasilModelProvider\Step\StepProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 
@@ -41,30 +37,28 @@ class TestResolver
 
     /**
      * @param TestInterface $test
-     * @param PageProviderInterface $pageProvider
-     * @param StepProviderInterface $stepProvider
-     * @param DataSetProviderInterface $dataSetProvider
+     * @param ProviderInterface $pageProvider
+     * @param ProviderInterface $stepProvider
+     * @param ProviderInterface $dataSetProvider
      *
      * @return TestInterface
      *
      * @throws CircularStepImportException
-     * @throws UnknownDataProviderException
      * @throws UnknownElementException
+     * @throws UnknownItemException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
-     * @throws UnknownStepException
      */
     public function resolve(
         TestInterface $test,
-        PageProviderInterface $pageProvider,
-        StepProviderInterface $stepProvider,
-        DataSetProviderInterface $dataSetProvider
+        ProviderInterface $pageProvider,
+        ProviderInterface $stepProvider,
+        ProviderInterface $dataSetProvider
     ): TestInterface {
         $testName = $test->getPath();
 
         try {
             $configuration = $this->configurationResolver->resolve($test->getConfiguration(), $pageProvider);
-        } catch (UnknownPageException $contextAwareException) {
+        } catch (UnknownItemException $contextAwareException) {
             $contextAwareException->applyExceptionContext([
                 ExceptionContextInterface::KEY_TEST_NAME => $testName,
             ]);
@@ -82,11 +76,9 @@ class TestResolver
 
                 $resolvedSteps[$stepName] = $resolvedStep;
             } catch (
-                UnknownDataProviderException |
                 UnknownElementException |
-                UnknownPageElementException |
-                UnknownPageException |
-                UnknownStepException $contextAwareException
+                UnknownItemException |
+                UnknownPageElementException $contextAwareException
             ) {
                 $contextAwareException->applyExceptionContext([
                     ExceptionContextInterface::KEY_TEST_NAME => $testName,

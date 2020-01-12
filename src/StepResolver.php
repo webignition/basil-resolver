@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace webignition\BasilResolver;
 
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
-use webignition\BasilModelProvider\Exception\UnknownPageException;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Identifier\EmptyIdentifierProvider;
 use webignition\BasilModelProvider\Identifier\IdentifierProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Step\StepInterface;
@@ -40,15 +40,15 @@ class StepResolver
 
     /**
      * @param StepInterface $step
-     * @param PageProviderInterface $pageProvider
+     * @param ProviderInterface $pageProvider
      *
      * @return StepInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
-    public function resolve(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
+    public function resolve(StepInterface $step, ProviderInterface $pageProvider): StepInterface
     {
         if ($step->requiresImportResolution()) {
             return $step;
@@ -63,15 +63,15 @@ class StepResolver
 
     /**
      * @param StepInterface $step
-     * @param PageProviderInterface $pageProvider
+     * @param ProviderInterface $pageProvider
      *
      * @return StepInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
-    private function resolveIdentifiers(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
+    private function resolveIdentifiers(StepInterface $step, ProviderInterface $pageProvider): StepInterface
     {
         $resolvedIdentifiers = [];
         $identifierProvider = new EmptyIdentifierProvider();
@@ -89,15 +89,15 @@ class StepResolver
 
     /**
      * @param StepInterface $step
-     * @param PageProviderInterface $pageProvider
+     * @param ProviderInterface $pageProvider
      *
      * @return StepInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
-    private function resolveActions(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
+    private function resolveActions(StepInterface $step, ProviderInterface $pageProvider): StepInterface
     {
         $resolvedActions = [];
         $identifierProvider = new IdentifierProvider($step->getIdentifiers());
@@ -110,7 +110,7 @@ class StepResolver
         } catch (
             UnknownElementException |
             UnknownPageElementException |
-            UnknownPageException $contextAwareException
+            UnknownItemException $contextAwareException
         ) {
             if ($action instanceof ActionInterface) {
                 $contextAwareException->applyExceptionContext([
@@ -126,15 +126,15 @@ class StepResolver
 
     /**
      * @param StepInterface $step
-     * @param PageProviderInterface $pageProvider
+     * @param ProviderInterface $pageProvider
      *
      * @return StepInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
-    private function resolveAssertions(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
+    private function resolveAssertions(StepInterface $step, ProviderInterface $pageProvider): StepInterface
     {
         $resolvedAssertions = [];
         $identifierProvider = new IdentifierProvider($step->getIdentifiers());
@@ -151,7 +151,7 @@ class StepResolver
         } catch (
             UnknownElementException |
             UnknownPageElementException |
-            UnknownPageException $contextAwareException
+            UnknownItemException $contextAwareException
         ) {
             if ($assertion instanceof AssertionInterface) {
                 $contextAwareException->applyExceptionContext([

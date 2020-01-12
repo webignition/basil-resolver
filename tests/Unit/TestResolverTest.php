@@ -7,17 +7,13 @@ namespace webignition\BasilResolver\Tests\Unit;
 use webignition\BasilContextAwareException\ContextAwareExceptionInterface;
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
 use webignition\BasilModelProvider\DataSet\DataSetProvider;
-use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\DataSet\EmptyDataSetProvider;
-use webignition\BasilModelProvider\Exception\UnknownDataProviderException;
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Exception\UnknownStepException;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModelProvider\Step\EmptyStepProvider;
 use webignition\BasilModelProvider\Step\StepProvider;
-use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\Action\InputAction;
 use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Assertion\Assertion;
@@ -53,9 +49,9 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveSuccess(
         TestInterface $test,
-        PageProviderInterface $pageProvider,
-        StepProviderInterface $stepProvider,
-        DataSetProviderInterface $dataSetProvider,
+        ProviderInterface $pageProvider,
+        ProviderInterface $stepProvider,
+        ProviderInterface $dataSetProvider,
         TestInterface $expectedTest
     ) {
         $resolvedTest = $this->resolver->resolve($test, $pageProvider, $stepProvider, $dataSetProvider);
@@ -506,9 +502,9 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveThrowsException(
         TestInterface $test,
-        PageProviderInterface $pageProvider,
-        StepProviderInterface $stepProvider,
-        DataSetProviderInterface $dataSetProvider,
+        ProviderInterface $pageProvider,
+        ProviderInterface $stepProvider,
+        ProviderInterface $dataSetProvider,
         ContextAwareExceptionInterface $expectedException
     ) {
         try {
@@ -538,7 +534,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedException' => $this->applyContextToException(
-                    new UnknownDataProviderException('data_provider_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_DATASET, 'data_provider_import_name'),
                     [
                         ExceptionContextInterface::KEY_TEST_NAME => 'test.yml',
                         ExceptionContextInterface::KEY_STEP_NAME => 'step name',
@@ -555,7 +551,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedException' => $this->applyContextToException(
-                    new UnknownPageException('page_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_PAGE, 'page_import_name'),
                     [
                         ExceptionContextInterface::KEY_TEST_NAME => 'test.yml',
                     ]
@@ -573,7 +569,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedException' => $this->applyContextToException(
-                    new UnknownPageException('page_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_PAGE, 'page_import_name'),
                     [
                         ExceptionContextInterface::KEY_TEST_NAME => 'test.yml',
                         ExceptionContextInterface::KEY_STEP_NAME => 'step name',
@@ -593,7 +589,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedException' => $this->applyContextToException(
-                    new UnknownPageException('page_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_PAGE, 'page_import_name'),
                     [
                         ExceptionContextInterface::KEY_TEST_NAME => 'test.yml',
                         ExceptionContextInterface::KEY_STEP_NAME => 'step name',
@@ -676,7 +672,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedException' => $this->applyContextToException(
-                    new UnknownStepException('step_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_STEP, 'step_import_name'),
                     [
                         ExceptionContextInterface::KEY_TEST_NAME => 'test.yml',
                         ExceptionContextInterface::KEY_STEP_NAME => 'step name',

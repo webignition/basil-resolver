@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModels\Page\PageInterface;
 use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class PageElementReferenceResolver
@@ -26,26 +27,28 @@ class PageElementReferenceResolver
 
     /**
      * @param string $pageElementReference
-     * @param PageProviderInterface $pageProvider
+     * @param ProviderInterface $pageProvider
      *
      * @return string
      *
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
     public function resolve(
         string $pageElementReference,
-        PageProviderInterface $pageProvider
+        ProviderInterface $pageProvider
     ): string {
         $model = new PageElementReference(ltrim($pageElementReference, '$'));
 
-        $page = $pageProvider->findPage($model->getImportName());
-        $page = $this->pageResolver->resolve($page);
+        $page = $pageProvider->find($model->getImportName());
 
-        $identifier = $page->getIdentifier($model->getElementName());
+        if ($page instanceof PageInterface) {
+            $page = $this->pageResolver->resolve($page);
+            $identifier = $page->getIdentifier($model->getElementName());
 
-        if (is_string($identifier)) {
-            return $identifier;
+            if (is_string($identifier)) {
+                return $identifier;
+            }
         }
 
         throw new UnknownPageElementException($model->getImportName(), $model->getElementName());

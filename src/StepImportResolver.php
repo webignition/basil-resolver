@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
-use webignition\BasilModelProvider\Exception\UnknownDataProviderException;
-use webignition\BasilModelProvider\Exception\UnknownStepException;
-use webignition\BasilModelProvider\Step\StepProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModels\DataSet\DataSetCollectionInterface;
 use webignition\BasilModels\Step\StepInterface;
 
 class StepImportResolver
@@ -19,17 +18,17 @@ class StepImportResolver
 
     /**
      * @param StepInterface $step
-     * @param StepProviderInterface $stepProvider
+     * @param ProviderInterface $stepProvider
      * @param string[] $handledImportNames
      *
      * @return StepInterface
      *
      * @throws CircularStepImportException
-     * @throws UnknownStepException
+     * @throws UnknownItemException
      */
     public function resolveStepImport(
         StepInterface $step,
-        StepProviderInterface $stepProvider,
+        ProviderInterface $stepProvider,
         array $handledImportNames = []
     ): StepInterface {
         $importName = $step->getImportName();
@@ -39,7 +38,7 @@ class StepImportResolver
                 throw new CircularStepImportException($importName);
             }
 
-            $parentStep = $stepProvider->findStep($importName);
+            $parentStep = $stepProvider->find($importName);
 
             if ($parentStep->requiresImportResolution()) {
                 $handledImportNames[] = $importName;
@@ -58,22 +57,25 @@ class StepImportResolver
 
     /**
      * @param StepInterface $step
-     * @param DataSetProviderInterface $dataSetProvider
+     * @param ProviderInterface $dataSetProvider
      *
      * @return StepInterface
      *
-     * @throws UnknownDataProviderException
+     * @throws UnknownItemException
      */
     public function resolveDataProviderImport(
         StepInterface $step,
-        DataSetProviderInterface $dataSetProvider
+        ProviderInterface $dataSetProvider
     ): StepInterface {
         $dataProviderImportName = $step->getDataImportName();
 
         if (null !== $dataProviderImportName) {
-            $step = $step->withData($dataSetProvider->findDataSetCollection($dataProviderImportName));
+            $dataSetCollection = $dataSetProvider->find($dataProviderImportName);
 
-            $step = $step->removeDataImportName();
+            if ($dataSetCollection instanceof DataSetCollectionInterface) {
+                $step = $step->withData($dataSetProvider->find($dataProviderImportName));
+                $step = $step->removeDataImportName();
+            }
         }
 
         return $step;

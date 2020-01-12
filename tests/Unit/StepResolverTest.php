@@ -6,10 +6,10 @@ namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilContextAwareException\ContextAwareExceptionInterface;
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
-use webignition\BasilModelProvider\Exception\UnknownPageException;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\InputAction;
 use webignition\BasilModels\Action\InteractionAction;
 use webignition\BasilModels\Assertion\Assertion;
@@ -43,7 +43,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveSuccess(
         StepInterface $step,
-        PageProviderInterface $pageProvider,
+        ProviderInterface $pageProvider,
         StepInterface $expectedStep
     ) {
         $resolvedStep = $this->resolver->resolve($step, $pageProvider);
@@ -438,7 +438,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolvePageElementReferencesThrowsException(
         StepInterface $step,
-        PageProviderInterface $pageProvider,
+        ProviderInterface $pageProvider,
         ContextAwareExceptionInterface $expectedException
     ) {
         try {
@@ -489,7 +489,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new EmptyPageProvider(),
                 'expectedException' => $this->applyContentToException(
-                    new UnknownPageException('page_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_PAGE, 'page_import_name'),
                     'click $page_import_name.elements.element_name'
                 ),
             ],
@@ -501,7 +501,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'pageProvider' => new EmptyPageProvider(),
                 'expectedException' => $this->applyContentToException(
-                    new UnknownPageException('page_import_name'),
+                    new UnknownItemException(UnknownItemException::TYPE_PAGE, 'page_import_name'),
                     '$page_import_name.elements.element_name exists'
                 ),
             ],

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ComparisonAssertionInterface;
 
@@ -28,19 +27,19 @@ class AssertionResolver
 
     /**
      * @param AssertionInterface $assertion
-     * @param PageProviderInterface $pageProvider
-     * @param IdentifierProviderInterface $identifierProvider
+     * @param ProviderInterface $pageProvider
+     * @param ProviderInterface $identifierProvider
      *
      * @return AssertionInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
     public function resolve(
         AssertionInterface $assertion,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider
     ): AssertionInterface {
         $identifier = $assertion->getIdentifier();
         $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);

@@ -6,10 +6,9 @@ namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\Identifier\EmptyIdentifierProvider;
 use webignition\BasilModelProvider\Identifier\IdentifierProvider;
-use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
 use webignition\BasilModels\Action\InputAction;
 use webignition\BasilModels\Action\InteractionAction;
@@ -64,8 +63,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveIsResolved(
         ActionInterface $action,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider,
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider,
         ActionInterface $expectedAction
     ) {
         $resolvedAssertion = $this->resolver->resolve($action, $pageProvider, $identifierProvider);

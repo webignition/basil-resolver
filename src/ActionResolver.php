@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
 use webignition\BasilModels\Action\InputActionInterface;
 use webignition\BasilModels\Action\InteractionActionInterface;
@@ -29,19 +28,19 @@ class ActionResolver
 
     /**
      * @param ActionInterface $action
-     * @param PageProviderInterface $pageProvider
-     * @param IdentifierProviderInterface $identifierProvider
+     * @param ProviderInterface $pageProvider
+     * @param ProviderInterface $identifierProvider
      *
      * @return ActionInterface
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
     public function resolve(
         ActionInterface $action,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider
     ): ActionInterface {
         if ($action instanceof InteractionActionInterface) {
             $identifier = $action->getIdentifier();
