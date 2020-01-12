@@ -6,7 +6,7 @@ namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\ConfigurationInterface;
@@ -31,7 +31,7 @@ class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolve(
         ConfigurationInterface $configuration,
-        PageProviderInterface $pageProvider,
+        ProviderInterface $pageProvider,
         ConfigurationInterface $expectedConfiguration
     ) {
         $resolvedConfiguration = $this->resolver->resolve($configuration, $pageProvider);

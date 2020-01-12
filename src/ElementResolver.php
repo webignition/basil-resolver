@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-use webignition\BasilModelProvider\Exception\UnknownIdentifierException;
-use webignition\BasilModelProvider\Exception\UnknownPageException;
-use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\Exception\UnknownItemException;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\AttributeReference\AttributeReference;
 use webignition\BasilModels\ElementReference\ElementReference;
 use webignition\BasilModels\PageElementReference\PageElementReference;
@@ -30,32 +28,32 @@ class ElementResolver
 
     /**
      * @param string $value
-     * @param PageProviderInterface $pageProvider
-     * @param IdentifierProviderInterface $identifierProvider
+     * @param ProviderInterface $pageProvider
+     * @param ProviderInterface $identifierProvider
      *
      * @return string
      *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
-     * @throws UnknownPageException
+     * @throws UnknownItemException
      */
     public function resolve(
         string $value,
-        PageProviderInterface $pageProvider,
-        IdentifierProviderInterface $identifierProvider
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider
     ): string {
         try {
             if (ElementReference::is($value)) {
-                return $identifierProvider->findIdentifier((new ElementReference($value))->getElementName());
+                return $identifierProvider->find((new ElementReference($value))->getElementName());
             }
 
             if (AttributeReference::is($value)) {
                 $attributeReference = new AttributeReference($value);
-                $identifier = $identifierProvider->findIdentifier($attributeReference->getElementName());
+                $identifier = $identifierProvider->find($attributeReference->getElementName());
 
                 return $identifier . '.' . $attributeReference->getAttributeName();
             }
-        } catch (UnknownIdentifierException $unknownIdentifierException) {
+        } catch (UnknownItemException $unknownIdentifierException) {
             throw new UnknownElementException($unknownIdentifierException->getName());
         }
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilResolver\PageElementReferenceResolver;
 use webignition\BasilResolver\UnknownPageElementException;
@@ -29,7 +29,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveIsResolved(
         string $pageElementReference,
-        PageProviderInterface $pageProvider,
+        ProviderInterface $pageProvider,
         string $expectedIdentifier
     ) {
         $identifier = $this->resolver->resolve($pageElementReference, $pageProvider);
@@ -61,7 +61,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveThrowsUnknownPageElementException(
         string $pageElementReference,
-        PageProviderInterface $pageProvider,
+        ProviderInterface $pageProvider,
         string $expectedExceptionMessage
     ) {
         $this->expectException(UnknownPageElementException::class);

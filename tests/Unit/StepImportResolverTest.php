@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\DataSet\DataSetProvider;
-use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\DataSet\EmptyDataSetProvider;
+use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModelProvider\Step\EmptyStepProvider;
 use webignition\BasilModelProvider\Step\StepProvider;
-use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
@@ -38,7 +37,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveStepImport(
         StepInterface $step,
-        StepProviderInterface $stepProvider,
+        ProviderInterface $stepProvider,
         StepInterface $expectedStep
     ) {
         $resolvedStep = $this->resolver->resolveStepImport($step, $stepProvider);
@@ -149,7 +148,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveDataProviderImport(
         StepInterface $step,
-        DataSetProviderInterface $dataSetProvider,
+        ProviderInterface $dataSetProvider,
         StepInterface $expectedStep
     ) {
         $resolvedStep = $this->resolver->resolveDataProviderImport(
@@ -211,7 +210,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveStepImportThrowsCircularReferenceException(
         StepInterface $step,
-        StepProviderInterface $stepProvider,
+        ProviderInterface $stepProvider,
         string $expectedCircularImportName
     ) {
         try {
