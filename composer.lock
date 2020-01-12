@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6b30c3888bdcc961bd8f7f6ec298c7b",
+    "content-hash": "a64f13ac6f2bf5128341853886fca652",
     "packages": [
+        {
+            "name": "webignition/basil-model-provider",
+            "version": "0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webignition/basil-model-provider.git",
+                "reference": "48ffdfc631ea97afe77b01d5a07b43fe2aa033e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webignition/basil-model-provider/zipball/48ffdfc631ea97afe77b01d5a07b43fe2aa033e9",
+                "reference": "48ffdfc631ea97afe77b01d5a07b43fe2aa033e9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "webignition/basil-models": ">=0.3,<1",
+                "webignition/php-basil-context-aware-exception": ">=0.1,<1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~8.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "webignition\\BasilModelProvider\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Cram",
+                    "email": "webignition@gmail.com"
+                }
+            ],
+            "description": "Providers for basil models",
+            "homepage": "https://github.com/webignition/basil-model-provider",
+            "time": "2020-01-10T13:59:19+00:00"
+        },
         {
             "name": "webignition/basil-models",
             "version": "0.25",
@@ -88,50 +132,6 @@
             "description": "Models for basil language objects",
             "homepage": "https://github.com/webignition/php-basil-context-aware-exception",
             "time": "2019-07-13T14:46:44+00:00"
-        },
-        {
-            "name": "webignition/php-basil-model-provider",
-            "version": "0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webignition/php-basil-model-provider.git",
-                "reference": "0d47b926b5960d5a2ab8e045e71cfd072cd2c609"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-basil-model-provider/zipball/0d47b926b5960d5a2ab8e045e71cfd072cd2c609",
-                "reference": "0d47b926b5960d5a2ab8e045e71cfd072cd2c609",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "webignition/basil-models": ">=0.3,<1",
-                "webignition/php-basil-context-aware-exception": ">=0.1,<1"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
-                "phpunit/phpunit": "~8.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "webignition\\BasilModelProvider\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Cram",
-                    "email": "webignition@gmail.com"
-                }
-            ],
-            "description": "Providers for basil models",
-            "homepage": "https://github.com/webignition/php-basil-model-provider",
-            "time": "2019-12-02T15:07:06+00:00"
         }
     ],
     "packages-dev": [
