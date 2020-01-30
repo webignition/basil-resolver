@@ -47,7 +47,11 @@ class PageElementReferenceResolver
             $identifier = $page->getIdentifier($model->getElementName());
 
             if (is_string($identifier)) {
-                return $identifier;
+                $attributeName = $model->getAttributeName();
+
+                return '' === $attributeName
+                    ? $identifier
+                    : $identifier . '.' . $attributeName;
             }
         }
 

@@ -40,18 +40,31 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
     public function resolveIsResolvedDataProvider(): array
     {
         return [
-            'resolvable' => [
+            'element reference' => [
                 'pageElementReference' => '$page_import_name.elements.element_name',
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
                         'page_import_name',
                         'http://example.com/',
                         [
-                            'element_name' => '.selector',
+                            'element_name' => '$".selector"',
                         ]
                     )
                 ]),
-                'expectedIdentifier' => '.selector',
+                'expectedIdentifier' => '$".selector"',
+            ],
+            'attribute reference' => [
+                'pageElementReference' => '$page_import_name.elements.element_name.attribute_name',
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page(
+                        'page_import_name',
+                        'http://example.com/',
+                        [
+                            'element_name' => '$".selector"',
+                        ]
+                    )
+                ]),
+                'expectedIdentifier' => '$".selector".attribute_name',
             ],
         ];
     }
