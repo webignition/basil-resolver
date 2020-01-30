@@ -52,16 +52,16 @@
         },
         {
             "name": "webignition/basil-models",
-            "version": "0.25",
+            "version": "0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "440fa7a2120cf431d55097bf5fa5d501b69e7dc5"
+                "reference": "e1f4cd85a46a0974d26a130cd183e0bd787b991d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/440fa7a2120cf431d55097bf5fa5d501b69e7dc5",
-                "reference": "440fa7a2120cf431d55097bf5fa5d501b69e7dc5",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/e1f4cd85a46a0974d26a130cd183e0bd787b991d",
+                "reference": "e1f4cd85a46a0974d26a130cd183e0bd787b991d",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2020-01-09T13:02:43+00:00"
+            "time": "2020-01-30T11:23:10+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
@@ -2906,16 +2906,16 @@
         },
         {
             "name": "webignition/basil-parser",
-            "version": "0.17",
+            "version": "0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-parser.git",
-                "reference": "203c1250e43a47af2956c00ba37bbc38390e4dfd"
+                "reference": "9fedfb7fbc53b3c9bdb41ece131bfd28fe765cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/203c1250e43a47af2956c00ba37bbc38390e4dfd",
-                "reference": "203c1250e43a47af2956c00ba37bbc38390e4dfd",
+                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/9fedfb7fbc53b3c9bdb41ece131bfd28fe765cbf",
+                "reference": "9fedfb7fbc53b3c9bdb41ece131bfd28fe765cbf",
                 "shasum": ""
             },
             "require": {
@@ -2948,7 +2948,7 @@
             ],
             "description": "Parses raw basil data into basic data structures",
             "homepage": "https://github.com/webignition/basil-parser",
-            "time": "2020-01-09T13:20:45+00:00"
+            "time": "2020-01-17T18:06:17+00:00"
         },
         {
             "name": "webignition/php-dom-element-identifier",
