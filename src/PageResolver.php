@@ -8,7 +8,7 @@ use webignition\BasilModels\Page\PageInterface;
 
 class PageResolver
 {
-    private const PARENT_REFERENCE_NAME_PATTERN = '\$"{{ ([^}\$])+ }}';
+    private const PARENT_REFERENCE_NAME_PATTERN = '\$[^"]+';
 
     public static function createResolver(): PageResolver
     {
@@ -118,7 +118,7 @@ class PageResolver
         preg_match($parentNameRegex, $identifier, $matches);
 
         if (count($matches) > 0) {
-            return trim($matches[0], '$"{} ');
+            return trim($matches[0], '$> ');
         }
 
         return null;
@@ -126,6 +126,9 @@ class PageResolver
 
     private function replaceParentReference(string $identifier, string $parentName, string $parentIdentifier): string
     {
-        return str_replace('{{ ' . $parentName . ' }}', '{{ ' . $parentIdentifier . ' }}', $identifier);
+        $parentReference = '$' . $parentName . ' >> ';
+        $parentReplacement = $parentIdentifier . ' >> ';
+
+        return str_replace($parentReference, $parentReplacement, $identifier);
     }
 }

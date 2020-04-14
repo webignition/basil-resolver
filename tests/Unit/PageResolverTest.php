@@ -59,40 +59,40 @@ class PageResolverTest extends \PHPUnit\Framework\TestCase
                 'page' => $pageParser->parse('import_name', [
                     'elements' => [
                         'form' => '$".form"',
-                        'form_container' => '$"{{ form }} .container"',
+                        'form_container' => '$form >> $".container"',
                     ],
                 ]),
                 'expectedPage' => new Page('import_name', '', [
                     'form' => '$".form"',
-                    'form_container' => '$"{{ $".form" }} .container"',
+                    'form_container' => '$".form" >> $".container"',
                 ]),
             ],
             'indirect parent reference, defined in order' => [
                 'page' => $pageParser->parse('import_name', [
                     'elements' => [
                         'form' => '$".form"',
-                        'form_container' => '$"{{ form }} .container"',
-                        'form_input' => '$"{{ form_container }} .input"',
+                        'form_container' => '$form >> $".container"',
+                        'form_input' => '$form_container >> $".input"',
                     ],
                 ]),
                 'expectedPage' => new Page('import_name', '', [
                     'form' => '$".form"',
-                    'form_container' => '$"{{ $".form" }} .container"',
-                    'form_input' => '$"{{ $"{{ $".form" }} .container" }} .input"',
+                    'form_container' => '$".form" >> $".container"',
+                    'form_input' => '$".form" >> $".container" >> $".input"',
                 ]),
             ],
             'indirect parent reference, defined in out of order' => [
                 'page' => $pageParser->parse('import_name', [
                     'elements' => [
                         'form' => '$".form"',
-                        'form_input' => '$"{{ form_container }} .input"',
-                        'form_container' => '$"{{ form }} .container"',
+                        'form_input' => '$".form" >> $".container" >> $".input"',
+                        'form_container' => '$".form" >> $".container"',
                     ],
                 ]),
                 'expectedPage' => new Page('import_name', '', [
                     'form' => '$".form"',
-                    'form_container' => '$"{{ $".form" }} .container"',
-                    'form_input' => '$"{{ $"{{ $".form" }} .container" }} .input"',
+                    'form_container' => '$".form" >> $".container"',
+                    'form_input' => '$".form" >> $".container" >> $".input"',
                 ]),
             ],
         ];
@@ -105,7 +105,7 @@ class PageResolverTest extends \PHPUnit\Framework\TestCase
         $page = $pageParser->parse('import_name', [
             'elements' => [
                 'form' => '$".form"',
-                'unresolvable' => '$"{{ missing }} .button"',
+                'unresolvable' => '$missing >> $".button"',
             ],
         ]);
 
