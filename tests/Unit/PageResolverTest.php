@@ -105,7 +105,7 @@ class PageResolverTest extends \PHPUnit\Framework\TestCase
         $page = $pageParser->parse('import_name', [
             'elements' => [
                 'form' => '$".form"',
-                'unresolvable' => '$"{{ missing }} .button"',
+                'unresolvable' => '$missing >> $".button"',
             ],
         ]);
 
