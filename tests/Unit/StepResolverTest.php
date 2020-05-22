@@ -10,13 +10,15 @@ use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\Action\InputAction;
-use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Action\Action;
+use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\Assertion;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
+use webignition\BasilParser\ActionParser;
+use webignition\BasilParser\AssertionParser;
 use webignition\BasilParser\StepParser;
 use webignition\BasilResolver\StepResolver;
 use webignition\BasilResolver\UnknownElementException;
@@ -36,7 +38,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider resolveForPendingImportResolutionStepDataProvider
      * @dataProvider resolveActionsAndAssertionsDataProvider
-     * @dataProvider resolveIdentifierCollectionDataProvider
+     * @!dataProvider resolveIdentifierCollectionDataProvider
      */
     public function testResolveSuccess(
         StepInterface $step,
@@ -70,6 +72,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
 
     public function resolveActionsAndAssertionsDataProvider(): array
     {
+        $actionParser = ActionParser::create();
+        $assertionParser = AssertionParser::create();
+
         $nonResolvableStep = $this->createStep([
             'actions' => [
                 'wait 30',
@@ -101,12 +106,11 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     )
                 ]),
                 'expectedStep' => new Step([
-                    new InputAction(
-                        'set $page_import_name.elements.examined to "value"',
-                        '$page_import_name.elements.examined to "value"',
+                    new ResolvedAction(
+                        $actionParser->parse('set $page_import_name.elements.examined to "value"'),
                         '$".examined"',
                         '"value"'
-                    )
+                    ),
                 ], []),
             ],
             'page element reference in action value' => [
@@ -125,12 +129,11 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     )
                 ]),
                 'expectedStep' => new Step([
-                    new InputAction(
-                        'set $".examined" to $page_import_name.elements.expected',
-                        '$".examined" to $page_import_name.elements.expected',
+                    new ResolvedAction(
+                        $actionParser->parse('set $".examined" to $page_import_name.elements.expected'),
                         '$".examined"',
                         '$".expected"'
-                    )
+                    ),
                 ], []),
             ],
             'page element reference in assertion examined value' => [
@@ -149,10 +152,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     )
                 ]),
                 'expectedStep' => new Step([], [
-                    new Assertion(
-                        '$page_import_name.elements.examined exists',
-                        '$".examined"',
-                        'exists'
+                    new ResolvedAssertion(
+                        $assertionParser->parse('$page_import_name.elements.examined exists'),
+                        '$".examined"'
                     ),
                 ]),
             ],
@@ -172,10 +174,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                     )
                 ]),
                 'expectedStep' => new Step([], [
-                    new ComparisonAssertion(
-                        '$".examined" is $page_import_name.elements.expected',
+                    new ResolvedAssertion(
+                        $assertionParser->parse('$".examined" is $page_import_name.elements.expected'),
                         '$".examined"',
-                        'is',
                         '$".expected"'
                     ),
                 ]),
@@ -192,9 +193,8 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'pageProvider' => new EmptyPageProvider(),
                 'expectedStep' => (new Step(
                     [
-                        new InputAction(
-                            'set $elements.examined to "value"',
-                            '$elements.examined to "value"',
+                        new ResolvedAction(
+                            $actionParser->parse('set $elements.examined to "value"'),
                             '$".examined"',
                             '"value"'
                         ),
@@ -216,9 +216,8 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'pageProvider' => new EmptyPageProvider(),
                 'expectedStep' => (new Step(
                     [
-                        new InputAction(
-                            'set $".examined" to $elements.expected',
-                            '$".examined" to $elements.expected',
+                        new ResolvedAction(
+                            $actionParser->parse('set $".examined" to $elements.expected'),
                             '$".examined"',
                             '$".expected"'
                         ),
@@ -240,12 +239,11 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'pageProvider' => new EmptyPageProvider(),
                 'expectedStep' => (new Step(
                     [
-                        new InputAction(
-                            'set $".examined" to $elements.expected.attribute_name',
-                            '$".examined" to $elements.expected.attribute_name',
+                        new ResolvedAction(
+                            $actionParser->parse('set $".examined" to $elements.expected.attribute_name'),
                             '$".examined"',
                             '$".expected".attribute_name'
-                        )
+                        ),
                     ],
                     []
                 ))->withIdentifiers([
@@ -265,10 +263,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => (new Step(
                     [],
                     [
-                        new Assertion(
-                            '$elements.examined exists',
-                            '$".examined"',
-                            'exists'
+                        new ResolvedAssertion(
+                            $assertionParser->parse('$elements.examined exists'),
+                            '$".examined"'
                         ),
                     ]
                 ))->withIdentifiers([
@@ -288,10 +285,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => (new Step(
                     [],
                     [
-                        new ComparisonAssertion(
-                            '$".examined-selector" is $elements.expected',
+                        new ResolvedAssertion(
+                            $assertionParser->parse('$".examined-selector" is $elements.expected'),
                             '$".examined-selector"',
-                            'is',
                             '$".expected"'
                         ),
                     ]
@@ -312,10 +308,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => (new Step(
                     [],
                     [
-                        new Assertion(
-                            '$elements.examined.attribute_name exists',
-                            '$".examined".attribute_name',
-                            'exists'
+                        new ResolvedAssertion(
+                            $assertionParser->parse('$elements.examined.attribute_name exists'),
+                            '$".examined".attribute_name'
                         ),
                     ]
                 ))->withIdentifiers([
@@ -335,10 +330,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedStep' => (new Step(
                     [],
                     [
-                        new ComparisonAssertion(
-                            '$".examined" is $elements.expected.attribute_name',
+                        new ResolvedAssertion(
+                            $assertionParser->parse('$".examined" is $elements.expected.attribute_name'),
                             '$".examined"',
-                            'is',
                             '$".expected".attribute_name'
                         ),
                     ]
@@ -407,7 +401,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'expectedStep' => (new Step(
                     [
-                        new InteractionAction(
+                        new Action(
                             'click $page_import_name.elements.page_element_name',
                             'click',
                             '$page_import_name.elements.page_element_name',

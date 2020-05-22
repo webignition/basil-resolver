@@ -10,8 +10,7 @@ use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
-use webignition\BasilModels\Action\InputAction;
-use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilParser\ActionParser;
 use webignition\BasilResolver\ActionResolver;
@@ -80,10 +79,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".selector"',
                 ]),
-                'expectedAction' => new InteractionAction(
-                    'click $elements.element_name',
-                    'click',
-                    '$elements.element_name',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('click $elements.element_name'),
                     '$".selector"'
                 ),
             ],
@@ -99,10 +96,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAction' => new InteractionAction(
-                    'click $page_import_name.elements.element_name',
-                    'click',
-                    '$page_import_name.elements.element_name',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('click $page_import_name.elements.element_name'),
                     '$".selector"'
                 ),
             ],
@@ -112,9 +107,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".selector"',
                 ]),
-                'expectedAction' => new InputAction(
-                    'set $elements.element_name to "value"',
-                    '$elements.element_name to "value"',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $elements.element_name to "value"'),
                     '$".selector"',
                     '"value"'
                 ),
@@ -131,9 +125,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAction' => new InputAction(
-                    'set $page_import_name.elements.element_name to "value"',
-                    '$page_import_name.elements.element_name to "value"',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $page_import_name.elements.element_name to "value"'),
                     '$".selector"',
                     '"value"'
                 ),
@@ -144,9 +137,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".resolved"',
                 ]),
-                'expectedAction' => new InputAction(
-                    'set $".selector" to $elements.element_name',
-                    '$".selector" to $elements.element_name',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $elements.element_name'),
                     '$".selector"',
                     '$".resolved"'
                 ),
@@ -163,9 +155,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAction' => new InputAction(
-                    'set $".selector" to $page_import_name.elements.element_name',
-                    '$".selector" to $page_import_name.elements.element_name',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $page_import_name.elements.element_name'),
                     '$".selector"',
                     '$".resolved"'
                 ),
@@ -177,9 +168,8 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     'element_one' => '$".one"',
                     'element_two' => '$".two"',
                 ]),
-                'expectedAction' => new InputAction(
-                    'set $elements.element_one to $elements.element_two',
-                    '$elements.element_one to $elements.element_two',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $elements.element_one to $elements.element_two'),
                     '$".one"',
                     '$".two"'
                 ),
@@ -199,9 +189,10 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAction' => new InputAction(
-                    'set $page_import_name.elements.element_one to $page_import_name.elements.element_two',
-                    '$page_import_name.elements.element_one to $page_import_name.elements.element_two',
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse(
+                        'set $page_import_name.elements.element_one to $page_import_name.elements.element_two'
+                    ),
                     '$".one"',
                     '$".two"'
                 ),
