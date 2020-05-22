@@ -14,16 +14,18 @@ use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModelProvider\Step\EmptyStepProvider;
 use webignition\BasilModelProvider\Step\StepProvider;
-use webignition\BasilModels\Action\InputAction;
-use webignition\BasilModels\Action\InteractionAction;
+use webignition\BasilModels\Action\Action;
+use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\Assertion;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
+use webignition\BasilParser\ActionParser;
+use webignition\BasilParser\AssertionParser;
 use webignition\BasilParser\StepParser;
 use webignition\BasilParser\Test\TestParser;
 use webignition\BasilResolver\TestResolver;
@@ -58,18 +60,22 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
 
     public function resolveSuccessDataProvider(): array
     {
+        $actionParser = ActionParser::create();
+        $assertionParser = AssertionParser::create();
+
         $expectedResolvedDataTest = new Test(new Configuration('', ''), [
             'step name' => (new Step(
                 [
-                    new InputAction(
+                    new Action(
                         'set $".action-selector" to $data.key1',
+                        'set',
                         '$".action-selector" to $data.key1',
                         '$".action-selector"',
                         '$data.key1'
                     )
                 ],
                 [
-                    new ComparisonAssertion(
+                    new Assertion(
                         '$".assertion-selector" is $data.key2',
                         '$".assertion-selector"',
                         'is',
@@ -150,7 +156,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => new Step(
                         [
-                            new InteractionAction(
+                            new Action(
                                 'click $".action-selector"',
                                 'click',
                                 '$".action-selector"',
@@ -193,19 +199,16 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => new Step(
                         [
-                            new InteractionAction(
-                                'click $page_import_name.elements.action_selector',
-                                'click',
-                                '$page_import_name.elements.action_selector',
+                            new ResolvedAction(
+                                $actionParser->parse('click $page_import_name.elements.action_selector'),
                                 '$".action-selector"'
-                            )
+                            ),
                         ],
                         [
-                            new Assertion(
-                                '$page_import_name.elements.assertion_selector exists',
-                                '$".assertion-selector"',
-                                'exists'
-                            )
+                            new ResolvedAssertion(
+                                $assertionParser->parse('$page_import_name.elements.assertion_selector exists'),
+                                '$".assertion-selector"'
+                            ),
                         ]
                     ),
                 ]),
@@ -231,7 +234,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => new Step(
                         [
-                            new InteractionAction(
+                            new Action(
                                 'click $".action-selector"',
                                 'click',
                                 '$".action-selector"',
@@ -282,19 +285,16 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => new Step(
                         [
-                            new InteractionAction(
-                                'click $elements.elements_action_selector',
-                                'click',
-                                '$elements.elements_action_selector',
+                            new ResolvedAction(
+                                $actionParser->parse('click $elements.elements_action_selector'),
                                 '$".action-selector"'
-                            )
+                            ),
                         ],
                         [
-                            new Assertion(
-                                '$elements.elements_assertion_selector exists',
-                                '$".assertion-selector"',
-                                'exists'
-                            )
+                            new ResolvedAssertion(
+                                $assertionParser->parse('$elements.elements_assertion_selector exists'),
+                                '$".assertion-selector"'
+                            ),
                         ]
                     ),
                 ]),
@@ -398,18 +398,15 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => new Step(
                         [
-                            new InteractionAction(
-                                'click $elements.action_selector',
-                                'click',
-                                '$elements.action_selector',
+                            new ResolvedAction(
+                                $actionParser->parse('click $elements.action_selector'),
                                 '$".action-selector"'
                             ),
                         ],
                         [
-                            new Assertion(
-                                '$elements.assertion_selector exists',
-                                '$".assertion-selector"',
-                                'exists'
+                            new ResolvedAssertion(
+                                $assertionParser->parse('$elements.assertion_selector exists'),
+                                '$".assertion-selector"'
                             ),
                         ]
                     ),
@@ -464,20 +461,18 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'expectedTest' => new Test(new Configuration('', ''), [
                     'step name' => (new Step(
                         [
-                            new InputAction(
-                                'set $elements.action_selector to $data.key1',
-                                '$elements.action_selector to $data.key1',
+                            new ResolvedAction(
+                                $actionParser->parse('set $elements.action_selector to $data.key1'),
                                 '$".action-selector"',
                                 '$data.key1'
-                            )
+                            ),
                         ],
                         [
-                            new ComparisonAssertion(
-                                '$elements.assertion_selector is $data.key2',
+                            new ResolvedAssertion(
+                                $assertionParser->parse('$elements.assertion_selector is $data.key2'),
                                 '$".assertion-selector"',
-                                'is',
                                 '$data.key2'
-                            )
+                            ),
                         ]
                     ))->withData(new DataSetCollection([
                         '0' => [
