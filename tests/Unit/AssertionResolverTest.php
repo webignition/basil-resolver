@@ -18,10 +18,7 @@ use webignition\BasilResolver\AssertionResolver;
 
 class AssertionResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var AssertionResolver
-     */
-    private $resolver;
+    private AssertionResolver $resolver;
 
     protected function setUp(): void
     {

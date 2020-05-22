@@ -12,7 +12,7 @@ class UnknownElementException extends \Exception implements ContextAwareExceptio
 {
     use ContextAwareExceptionTrait;
 
-    private $elementName;
+    private string $elementName;
 
     public function __construct(string $elementName, ?string $message = null)
     {

@@ -11,7 +11,7 @@ use webignition\BasilModels\Assertion\ComparisonAssertionInterface;
 
 class AssertionResolver
 {
-    private $elementResolver;
+    private ElementResolver $elementResolver;
 
     public function __construct(ElementResolver $elementResolver)
     {

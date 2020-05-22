@@ -18,10 +18,7 @@ use webignition\BasilResolver\ActionResolver;
 
 class ActionResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var ActionResolver
-     */
-    private $resolver;
+    private ActionResolver $resolver;
 
     protected function setUp(): void
     {
