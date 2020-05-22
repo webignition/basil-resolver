@@ -7,7 +7,7 @@ namespace webignition\BasilResolver;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\Assertion\ComparisonAssertionInterface;
+use webignition\BasilModels\Assertion\ResolvedAssertion;
 
 class AssertionResolver
 {
@@ -41,20 +41,27 @@ class AssertionResolver
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): AssertionInterface {
+        $isValueResolved = false;
+
+        $resolvedIdentifier = null;
+        $resolvedValue = null;
+
         $identifier = $assertion->getIdentifier();
         $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
+        $isIdentifierResolved = $resolvedIdentifier !== $identifier;
 
-        if ($resolvedIdentifier !== $identifier) {
-            $assertion = $assertion->withIdentifier($resolvedIdentifier);
-        }
-
-        if ($assertion instanceof ComparisonAssertionInterface) {
+        if ($assertion->isComparison()) {
             $value = $assertion->getValue();
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
-            if ($resolvedValue !== $value) {
-                $assertion = $assertion->withValue($resolvedValue);
-            }
+            $isValueResolved = $resolvedValue !== $value;
+        }
+
+        if ($isIdentifierResolved || $isValueResolved) {
+            $identifier = $isIdentifierResolved ? $resolvedIdentifier : $assertion->getIdentifier();
+            $value = $isValueResolved ? $resolvedValue : $assertion->getValue();
+
+            $assertion = new ResolvedAssertion($assertion, $identifier, $value);
         }
 
         return $assertion;

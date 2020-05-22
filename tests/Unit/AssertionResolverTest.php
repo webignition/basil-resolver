@@ -9,9 +9,8 @@ use webignition\BasilModelProvider\Identifier\IdentifierProvider;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\Assertion\ComparisonAssertion;
+use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilParser\AssertionParser;
 use webignition\BasilResolver\AssertionResolver;
@@ -80,10 +79,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".selector"',
                 ]),
-                'expectedAssertion' => new Assertion(
-                    '$elements.element_name exists',
-                    '$".selector"',
-                    'exists'
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$elements.element_name exists'),
+                    '$".selector"'
                 ),
             ],
             'exists assertion with page element reference identifier' => [
@@ -98,10 +96,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAssertion' => new Assertion(
-                    '$page_import_name.elements.element_name exists',
-                    '$".selector"',
-                    'exists'
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$page_import_name.elements.element_name exists'),
+                    '$".selector"'
                 ),
             ],
             'is assertion with element reference identifier and literal value' => [
@@ -110,10 +107,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".selector"',
                 ]),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$elements.element_name is "value"',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$elements.element_name is "value"'),
                     '$".selector"',
-                    'is',
                     '"value"'
                 ),
             ],
@@ -129,10 +125,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$page_import_name.elements.element_name is "value"',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$page_import_name.elements.element_name is "value"'),
                     '$".selector"',
-                    'is',
                     '"value"'
                 ),
             ],
@@ -142,10 +137,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                 'identifierProvider' => new IdentifierProvider([
                     'element_name' => '$".resolved"',
                 ]),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$".selector" is $elements.element_name',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$".selector" is $elements.element_name'),
                     '$".selector"',
-                    'is',
                     '$".resolved"'
                 ),
             ],
@@ -161,10 +155,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$".selector" is $page_import_name.elements.element_name',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$".selector" is $page_import_name.elements.element_name'),
                     '$".selector"',
-                    'is',
                     '$".resolved"'
                 ),
             ],
@@ -175,10 +168,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     'element_one' => '$".one"',
                     'element_two' => '$".two"',
                 ]),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$elements.element_one is $elements.element_two',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$elements.element_one is $elements.element_two'),
                     '$".one"',
-                    'is',
                     '$".two"'
                 ),
             ],
@@ -197,10 +189,11 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                 ]),
                 'identifierProvider' => new EmptyIdentifierProvider(),
-                'expectedAssertion' => new ComparisonAssertion(
-                    '$page_import_name.elements.element_one is $page_import_name.elements.element_two',
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse(
+                        '$page_import_name.elements.element_one is $page_import_name.elements.element_two'
+                    ),
                     '$".one"',
-                    'is',
                     '$".two"'
                 ),
             ],
