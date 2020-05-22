@@ -24,10 +24,7 @@ use webignition\BasilResolver\UnknownPageElementException;
 
 class StepResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var StepResolver
-     */
-    private $resolver;
+    private StepResolver $resolver;
 
     protected function setUp(): void
     {

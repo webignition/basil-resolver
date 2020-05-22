@@ -15,9 +15,9 @@ use webignition\BasilModels\Step\StepInterface;
 
 class StepResolver
 {
-    private $actionResolver;
-    private $assertionResolver;
-    private $elementResolver;
+    private ActionResolver $actionResolver;
+    private AssertionResolver $assertionResolver;
+    private ElementResolver $elementResolver;
 
     public function __construct(
         ActionResolver $actionResolver,

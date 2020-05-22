@@ -12,10 +12,7 @@ use webignition\BasilResolver\UnknownPageElementException;
 
 class PageResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var PageResolver
-     */
-    private $resolver;
+    private PageResolver $resolver;
 
     protected function setUp(): void
     {

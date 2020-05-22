@@ -12,7 +12,7 @@ use webignition\BasilModels\Action\InteractionActionInterface;
 
 class ActionResolver
 {
-    private $elementResolver;
+    private ElementResolver $elementResolver;
 
     public function __construct(ElementResolver $referencedElementResolver)
     {

@@ -12,7 +12,7 @@ use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class ElementResolver
 {
-    private $pageElementReferenceResolver;
+    private PageElementReferenceResolver $pageElementReferenceResolver;
 
     public function __construct(PageElementReferenceResolver $pageElementReferenceResolver)
     {

@@ -14,10 +14,7 @@ use webignition\BasilResolver\TestConfigurationResolver;
 
 class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var TestConfigurationResolver
-     */
-    private $resolver;
+    private TestConfigurationResolver $resolver;
 
     protected function setUp(): void
     {

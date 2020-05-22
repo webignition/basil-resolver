@@ -20,10 +20,7 @@ use webignition\BasilResolver\StepImportResolver;
 
 class StepImportResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @var StepImportResolver
-     */
-    private $resolver;
+    private StepImportResolver $resolver;
 
     protected function setUp(): void
     {

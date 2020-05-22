@@ -8,7 +8,7 @@ use webignition\BasilContextAwareException\ContextAwareExceptionInterface;
 
 class UnknownPageElementException extends UnknownElementException implements ContextAwareExceptionInterface
 {
-    private $importName;
+    private string $importName;
 
     public function __construct(string $importName, string $elementName)
     {

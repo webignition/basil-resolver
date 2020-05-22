@@ -12,9 +12,9 @@ use webignition\BasilModels\Test\TestInterface;
 
 class TestResolver
 {
-    private $configurationResolver;
-    private $stepResolver;
-    private $stepImportResolver;
+    private TestConfigurationResolver $configurationResolver;
+    private StepResolver $stepResolver;
+    private StepImportResolver $stepImportResolver;
 
     public function __construct(
         TestConfigurationResolver $configurationResolver,
