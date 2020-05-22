@@ -7,8 +7,7 @@ namespace webignition\BasilResolver;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
-use webignition\BasilModels\Action\InputActionInterface;
-use webignition\BasilModels\Action\InteractionActionInterface;
+use webignition\BasilModels\Action\ResolvedAction;
 
 class ActionResolver
 {
@@ -42,22 +41,31 @@ class ActionResolver
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): ActionInterface {
-        if ($action instanceof InteractionActionInterface) {
+        $isIdentifierResolved = false;
+        $isValueResolved = false;
+
+        $resolvedIdentifier = null;
+        $resolvedValue = null;
+
+        if ($action->isInteraction() || $action->isInput()) {
             $identifier = $action->getIdentifier();
             $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
 
-            if ($resolvedIdentifier !== $identifier) {
-                $action = $action->withIdentifier($resolvedIdentifier);
-            }
+            $isIdentifierResolved = $resolvedIdentifier !== $identifier;
         }
 
-        if ($action instanceof InputActionInterface) {
+        if ($action->isInput()) {
             $value = $action->getValue();
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
-            if ($resolvedValue !== $value) {
-                $action = $action->withValue($resolvedValue);
-            }
+            $isValueResolved = $resolvedValue !== $value;
+        }
+
+        if ($isIdentifierResolved || $isValueResolved) {
+            $identifier = $isIdentifierResolved ? $resolvedIdentifier : $action->getIdentifier();
+            $value = $isValueResolved ? $resolvedValue : $action->getValue();
+
+            $action = new ResolvedAction($action, $identifier, $value);
         }
 
         return $action;
