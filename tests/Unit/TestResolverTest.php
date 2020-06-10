@@ -115,7 +115,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
             'configuration is resolved' => [
                 'test' => $testParser->parse([
                     'config' => [
-                        'url' => 'page_import_name.url',
+                        'url' => '$page_import_name.url',
                     ],
                 ]),
                 'pageProvider' => new PageProvider([
@@ -536,7 +536,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
             'UnknownPageException: config.url references page not defined within a collection' => [
                 'test' => $testParser->parse([
                     'config' => [
-                        'url' => 'page_import_name.url',
+                        'url' => '$page_import_name.url',
                     ],
                 ])->withPath('test.yml'),
                 'pageProvider' => new EmptyPageProvider(),
