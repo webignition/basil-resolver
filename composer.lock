@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8cf4d03a8258d0eed8b00c8b2e4eac0",
+    "content-hash": "98a204fd661ef079fbddc0a0f2ccba78",
     "packages": [
         {
             "name": "webignition/basil-model-provider",
-            "version": "0.7",
+            "version": "0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-model-provider.git",
-                "reference": "59cb485f8a9edf6bccf1059d71b3e928cf10071b"
+                "reference": "13bd28a1011b3ae1f83011dc7a6e14beb1797430"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-model-provider/zipball/59cb485f8a9edf6bccf1059d71b3e928cf10071b",
-                "reference": "59cb485f8a9edf6bccf1059d71b3e928cf10071b",
+                "url": "https://api.github.com/repos/webignition/basil-model-provider/zipball/13bd28a1011b3ae1f83011dc7a6e14beb1797430",
+                "reference": "13bd28a1011b3ae1f83011dc7a6e14beb1797430",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
-                "webignition/basil-models": ">=0.44,<1",
-                "webignition/php-basil-context-aware-exception": ">=0.1,<1"
+                "webignition/basil-models": ">=0.47,<1",
+                "webignition/php-basil-context-aware-exception": ">=0.3,<1"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12",
@@ -48,20 +48,20 @@
             ],
             "description": "Providers for basil models",
             "homepage": "https://github.com/webignition/basil-model-provider",
-            "time": "2020-05-22T15:01:37+00:00"
+            "time": "2020-05-28T15:02:21+00:00"
         },
         {
             "name": "webignition/basil-models",
-            "version": "0.47",
+            "version": "0.51",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "503008bfa1b0775ccbbf3d6ebd5998def4fdfef0"
+                "reference": "e4acfe5e8054d16d09f83b7fd16ba1773ebcfee6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/503008bfa1b0775ccbbf3d6ebd5998def4fdfef0",
-                "reference": "503008bfa1b0775ccbbf3d6ebd5998def4fdfef0",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/e4acfe5e8054d16d09f83b7fd16ba1773ebcfee6",
+                "reference": "e4acfe5e8054d16d09f83b7fd16ba1773ebcfee6",
                 "shasum": ""
             },
             "require": {
@@ -90,28 +90,28 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2020-05-22T16:33:15+00:00"
+            "time": "2020-06-10T13:49:24+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
-            "version": "0.1",
+            "version": "0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/php-basil-context-aware-exception.git",
-                "reference": "c1435f31a79191748f90e091775dbb278510ee41"
+                "reference": "0ab78e23ccdeb5ada1a254f2c3510b6726a2329a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-basil-context-aware-exception/zipball/c1435f31a79191748f90e091775dbb278510ee41",
-                "reference": "c1435f31a79191748f90e091775dbb278510ee41",
+                "url": "https://api.github.com/repos/webignition/php-basil-context-aware-exception/zipball/0ab78e23ccdeb5ada1a254f2c3510b6726a2329a",
+                "reference": "0ab78e23ccdeb5ada1a254f2c3510b6726a2329a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.11.5",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -132,7 +132,7 @@
             ],
             "description": "Models for basil language objects",
             "homepage": "https://github.com/webignition/php-basil-context-aware-exception",
-            "time": "2019-07-13T14:46:44+00:00"
+            "time": "2020-05-28T10:45:08+00:00"
         }
     ],
     "packages-dev": [
@@ -1883,28 +1883,28 @@
         },
         {
             "name": "webignition/basil-dom-identifier-factory",
-            "version": "0.12",
+            "version": "0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-dom-identifier-factory.git",
-                "reference": "e76686219a8fdf17efe22b0197c5cf2674228417"
+                "reference": "d1e7c9973ed5c4645d5cdf2e7918f8c21cc9dc3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-dom-identifier-factory/zipball/e76686219a8fdf17efe22b0197c5cf2674228417",
-                "reference": "e76686219a8fdf17efe22b0197c5cf2674228417",
+                "url": "https://api.github.com/repos/webignition/basil-dom-identifier-factory/zipball/d1e7c9973ed5c4645d5cdf2e7918f8c21cc9dc3a",
+                "reference": "d1e7c9973ed5c4645d5cdf2e7918f8c21cc9dc3a",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=7.2",
-                "webignition/basil-value-extractor": ">=0.2,<1",
-                "webignition/php-dom-element-identifier": ">=0.10,<1",
-                "webignition/quoted-string-value-extractor": ">=0.1,<1"
+                "php": ">=7.4",
+                "webignition/basil-value-extractor": ">=0.4,<1",
+                "webignition/php-dom-element-identifier": ">=0.14,<1",
+                "webignition/quoted-string-value-extractor": ">=0.2,<1"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -1924,20 +1924,20 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-dom-identifier-factory",
-            "time": "2020-04-14T13:29:59+00:00"
+            "time": "2020-05-27T16:24:15+00:00"
         },
         {
             "name": "webignition/basil-parser",
-            "version": "0.23",
+            "version": "0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-parser.git",
-                "reference": "a4e20b705666057c441d5d36e2e7d525b32185a4"
+                "reference": "94912c06d10c95c4eee385dcb7988e1a9c459aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/a4e20b705666057c441d5d36e2e7d525b32185a4",
-                "reference": "a4e20b705666057c441d5d36e2e7d525b32185a4",
+                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/94912c06d10c95c4eee385dcb7988e1a9c459aa6",
+                "reference": "94912c06d10c95c4eee385dcb7988e1a9c459aa6",
                 "shasum": ""
             },
             "require": {
@@ -1971,29 +1971,30 @@
             ],
             "description": "Parses raw basil data into basic data structures",
             "homepage": "https://github.com/webignition/basil-parser",
-            "time": "2020-05-22T16:44:11+00:00"
+            "time": "2020-05-29T10:53:28+00:00"
         },
         {
             "name": "webignition/basil-value-extractor",
-            "version": "0.3",
+            "version": "0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-value-extractor.git",
-                "reference": "43bcd6ce739486208967621bbc939cbb40677080"
+                "reference": "dab3842bf31cd93a0cf7d2f440d4cbf4d2004900"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-value-extractor/zipball/43bcd6ce739486208967621bbc939cbb40677080",
-                "reference": "43bcd6ce739486208967621bbc939cbb40677080",
+                "url": "https://api.github.com/repos/webignition/basil-value-extractor/zipball/dab3842bf31cd93a0cf7d2f440d4cbf4d2004900",
+                "reference": "dab3842bf31cd93a0cf7d2f440d4cbf4d2004900",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "ext-mbstring": "*",
+                "php": ">=7.4"
             },
             "require-dev": {
                 "php-mock/php-mock-mockery": "^1.3",
                 "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -2013,30 +2014,30 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-value-extractor",
-            "time": "2020-04-14T13:42:55+00:00"
+            "time": "2020-05-27T16:00:25+00:00"
         },
         {
             "name": "webignition/php-dom-element-identifier",
-            "version": "0.13",
+            "version": "0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/php-dom-element-identifier.git",
-                "reference": "fe2aeec6fbf2e9a8f5f6d6d51f6176635521bb12"
+                "reference": "f305800e74fd76e0ae4d87ea1908d4043e6b1c1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-dom-element-identifier/zipball/fe2aeec6fbf2e9a8f5f6d6d51f6176635521bb12",
-                "reference": "fe2aeec6fbf2e9a8f5f6d6d51f6176635521bb12",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-identifier/zipball/f305800e74fd76e0ae4d87ea1908d4043e6b1c1c",
+                "reference": "f305800e74fd76e0ae4d87ea1908d4043e6b1c1c",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=7.2",
-                "webignition/php-dom-element-locator": ">=0.2,<1"
+                "webignition/php-dom-element-locator": ">=0.4,<1"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -2056,28 +2057,28 @@
                 }
             ],
             "homepage": "https://github.com/webignition/php-dom-element-identifier",
-            "time": "2020-04-13T16:35:20+00:00"
+            "time": "2020-05-27T14:10:38+00:00"
         },
         {
             "name": "webignition/php-dom-element-locator",
-            "version": "0.3",
+            "version": "0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/php-dom-element-locator.git",
-                "reference": "db0e5947250402fd8df5187a3fe8d754723e1297"
+                "reference": "d980f9323deb536de371e79e671e4b055f2bb8ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-dom-element-locator/zipball/db0e5947250402fd8df5187a3fe8d754723e1297",
-                "reference": "db0e5947250402fd8df5187a3fe8d754723e1297",
+                "url": "https://api.github.com/repos/webignition/php-dom-element-locator/zipball/d980f9323deb536de371e79e671e4b055f2bb8ac",
+                "reference": "d980f9323deb536de371e79e671e4b055f2bb8ac",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -2098,28 +2099,28 @@
             ],
             "description": "Model for identifying the location of an element within a DOM",
             "homepage": "https://github.com/webignition/php-dom-element-locator",
-            "time": "2020-04-13T14:54:45+00:00"
+            "time": "2020-05-27T13:59:02+00:00"
         },
         {
             "name": "webignition/php-path-resolver",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/php-path-resolver.git",
-                "reference": "2e41e8d0644797566674ce02f673ddbfba7d15b3"
+                "reference": "cd42487b20a64b4d68f111657b1e5c6ac102140c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/php-path-resolver/zipball/2e41e8d0644797566674ce02f673ddbfba7d15b3",
-                "reference": "2e41e8d0644797566674ce02f673ddbfba7d15b3",
+                "url": "https://api.github.com/repos/webignition/php-path-resolver/zipball/cd42487b20a64b4d68f111657b1e5c6ac102140c",
+                "reference": "cd42487b20a64b4d68f111657b1e5c6ac102140c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.11.5",
-                "phpunit/phpunit": "~8.0",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -2145,28 +2146,29 @@
                 "path",
                 "resolver"
             ],
-            "time": "2019-11-22T15:49:36+00:00"
+            "time": "2020-05-28T11:19:14+00:00"
         },
         {
             "name": "webignition/quoted-string-value-extractor",
-            "version": "0.1",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/quoted-string-value-extractor.git",
-                "reference": "b5283c7818a9e73cf14f48714d3754c88b8f5bcb"
+                "reference": "56180135bb9d6b8da75ab53cb5703788e50b8c1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/quoted-string-value-extractor/zipball/b5283c7818a9e73cf14f48714d3754c88b8f5bcb",
-                "reference": "b5283c7818a9e73cf14f48714d3754c88b8f5bcb",
+                "url": "https://api.github.com/repos/webignition/quoted-string-value-extractor/zipball/56180135bb9d6b8da75ab53cb5703788e50b8c1b",
+                "reference": "56180135bb9d6b8da75ab53cb5703788e50b8c1b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "ext-mbstring": "*",
+                "php": ">=7.4"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "~8.0",
+                "phpunit/phpunit": "~9",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -2186,7 +2188,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/quoted-string-value-extractor",
-            "time": "2019-12-29T12:17:17+00:00"
+            "time": "2020-05-27T16:05:14+00:00"
         },
         {
             "name": "webmozart/assert",
