@@ -7,6 +7,7 @@ namespace webignition\BasilResolver;
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModels\Step\StepCollection;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 
@@ -89,7 +90,7 @@ class TestResolver
             }
         }
 
-        $resolvedTest = new Test($configuration, $resolvedSteps);
+        $resolvedTest = new Test($configuration, new StepCollection($resolvedSteps));
         $testPath = $test->getPath();
 
         if (null !== $testPath) {
