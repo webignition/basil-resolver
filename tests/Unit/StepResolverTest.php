@@ -530,7 +530,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     private function createStep(array $stepData): StepInterface
     {
-        return (StepParser::create())->parse($stepData);
+        return StepParser::create()->parse($stepData);
     }
 
     private function applyContentToException(
