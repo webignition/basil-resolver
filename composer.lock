@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51e4ecea642bfd2ae0af2a41337fdd98",
+    "content-hash": "36babaea0da4b698be7ce27f89240cfe",
     "packages": [
         {
             "name": "webignition/basil-model-provider",
@@ -52,16 +52,16 @@
         },
         {
             "name": "webignition/basil-models",
-            "version": "0.58",
+            "version": "0.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "ff0941268f07e80bda9dba8a18f032e98fbba335"
+                "reference": "80274308d8d11faa11041aaa3d2b70b88b4e5107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/ff0941268f07e80bda9dba8a18f032e98fbba335",
-                "reference": "ff0941268f07e80bda9dba8a18f032e98fbba335",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/80274308d8d11faa11041aaa3d2b70b88b4e5107",
+                "reference": "80274308d8d11faa11041aaa3d2b70b88b4e5107",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,6 @@
                 "phpstan/phpstan": "^0.12",
                 "phpunit/phpunit": "~9.0",
                 "squizlabs/php_codesniffer": "3.*",
-                "symplify/easy-coding-standard": "^8.1",
                 "webignition/object-reflector": "^0.1.0"
             },
             "type": "library",
@@ -92,7 +91,7 @@
                 }
             ],
             "homepage": "https://github.com/webignition/basil-models",
-            "time": "2020-09-02T15:00:14+00:00"
+            "time": "2020-06-12T09:51:40+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
@@ -5793,31 +5792,30 @@
         },
         {
             "name": "webignition/basil-parser",
-            "version": "0.26",
+            "version": "0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-parser.git",
-                "reference": "8657b1091502b7ec6b296dced6c92cf7a655213a"
+                "reference": "10b7dfd65812f7f39ced19955aa777e3a9a4ea2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/8657b1091502b7ec6b296dced6c92cf7a655213a",
-                "reference": "8657b1091502b7ec6b296dced6c92cf7a655213a",
+                "url": "https://api.github.com/repos/webignition/basil-parser/zipball/10b7dfd65812f7f39ced19955aa777e3a9a4ea2a",
+                "reference": "10b7dfd65812f7f39ced19955aa777e3a9a4ea2a",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=7.4",
                 "webignition/basil-dom-identifier-factory": ">=0.13,<1",
-                "webignition/basil-models": ">=0.58,<1",
+                "webignition/basil-models": ">=0.53,<1",
                 "webignition/basil-value-extractor": ">=0.4,<1",
                 "webignition/php-path-resolver": ">=0.2,<1"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.42",
-                "phpunit/phpunit": "^9.3",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symplify/easy-coding-standard": "^8.2"
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "~9.0",
+                "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
             "autoload": {
@@ -5837,7 +5835,7 @@
             ],
             "description": "Parses raw basil data into basic data structures",
             "homepage": "https://github.com/webignition/basil-parser",
-            "time": "2020-09-02T15:13:29+00:00"
+            "time": "2020-06-12T10:03:28+00:00"
         },
         {
             "name": "webignition/basil-value-extractor",
