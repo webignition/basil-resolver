@@ -40,7 +40,7 @@
     "require": {
         "php": ">=7.4",
         "webignition/basil-model-provider": ">=0.8,<1",
-        "webignition/basil-models": ">=0.58,<1",
+        "webignition/basil-models": ">=0.53,<1",
         "webignition/php-basil-context-aware-exception": ">=0.3,<1"
     },
     "require-dev": {
@@ -48,7 +48,7 @@
         "phpunit/phpunit": "~9.0",
         "squizlabs/php_codesniffer": "3.*",
         "symplify/easy-coding-standard": "^8.2",
-        "webignition/basil-parser": ">=0.26,<1"
+        "webignition/basil-parser": ">=0.25,<1"
     },
     "config": {
         "sort-packages": true
