@@ -56,9 +56,7 @@ class StepResolver
 
         $step = $this->resolveIdentifiers($step, $pageProvider);
         $step = $this->resolveActions($step, $pageProvider);
-        $step = $this->resolveAssertions($step, $pageProvider);
-
-        return $step;
+        return $this->resolveAssertions($step, $pageProvider);
     }
 
     /**
