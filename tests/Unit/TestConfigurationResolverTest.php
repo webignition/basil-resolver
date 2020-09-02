@@ -40,26 +40,26 @@ class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
     {
         return [
             'empty' => [
-                'configuration' => new Configuration('', ''),
+                'configuration' => new Configuration([], ''),
                 'pageProvider' => new EmptyPageProvider(),
-                'expectedConfiguration' => new Configuration('', ''),
+                'expectedConfiguration' => new Configuration([], ''),
             ],
             'browser only' => [
-                'configuration' => new Configuration('chrome', ''),
+                'configuration' => new Configuration(['chrome'], ''),
                 'pageProvider' => new EmptyPageProvider(),
-                'expectedConfiguration' => new Configuration('chrome', ''),
+                'expectedConfiguration' => new Configuration(['chrome'], ''),
             ],
             'literal url' => [
-                'configuration' => new Configuration('chrome', 'http://example.com/'),
+                'configuration' => new Configuration(['chrome'], 'http://example.com/'),
                 'pageProvider' => new EmptyPageProvider(),
-                'expectedConfiguration' => new Configuration('chrome', 'http://example.com/'),
+                'expectedConfiguration' => new Configuration(['chrome'], 'http://example.com/'),
             ],
             'well-formed page url reference' => [
-                'configuration' => new Configuration('chrome', '$page_import_name.url'),
+                'configuration' => new Configuration(['chrome'], '$page_import_name.url'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page('page_import_name', 'http://page.example.com/'),
                 ]),
-                'expectedConfiguration' => new Configuration('chrome', 'http://page.example.com/'),
+                'expectedConfiguration' => new Configuration(['chrome'], 'http://page.example.com/'),
             ],
         ];
     }

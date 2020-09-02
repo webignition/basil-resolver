@@ -41,6 +41,6 @@ class TestConfigurationResolver
             }
         }
 
-        return new Configuration($configuration->getBrowser(), $url);
+        return new Configuration($configuration->getBrowsers(), $url);
     }
 }

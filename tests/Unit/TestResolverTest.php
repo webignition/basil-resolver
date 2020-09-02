@@ -65,7 +65,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
         $assertionParser = AssertionParser::create();
 
         $expectedResolvedDataTest = new Test(
-            new Configuration('', ''),
+            new Configuration([], ''),
             new StepCollection([
                 'step name' => (new Step(
                     [
@@ -107,7 +107,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'pageProvider' => new EmptyPageProvider(),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
-                'expectedTest' => new Test(new Configuration('', ''), new StepCollection([])),
+                'expectedTest' => new Test(new Configuration([], ''), new StepCollection([])),
             ],
             'empty test with path' => [
                 'test' => $testParser->parse([])->withPath('test.yml'),
@@ -116,7 +116,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => (
                     new Test(
-                        new Configuration('', ''),
+                        new Configuration([], ''),
                         new StepCollection([])
                     )
                 )->withPath('test.yml'),
@@ -133,7 +133,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', 'http://example.com/'),
+                    new Configuration([], 'http://example.com/'),
                     new StepCollection([])
                 ),
             ],
@@ -144,7 +144,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'pageProvider' => new EmptyPageProvider(),
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
-                'expectedTest' => new Test(new Configuration('', ''), new StepCollection([
+                'expectedTest' => new Test(new Configuration([], ''), new StepCollection([
                     'step name' => new Step([], []),
                 ])),
             ],
@@ -163,7 +163,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => new Step(
                             [
@@ -209,7 +209,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 'stepProvider' => new EmptyStepProvider(),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => new Step(
                             [
@@ -247,7 +247,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => new Step(
                             [
@@ -301,7 +301,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => new Step(
                             [
@@ -417,7 +417,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'dataSetProvider' => new EmptyDataSetProvider(),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => new Step(
                             [
@@ -483,7 +483,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
                     ]),
                 ]),
                 'expectedTest' => new Test(
-                    new Configuration('', ''),
+                    new Configuration([], ''),
                     new StepCollection([
                         'step name' => (new Step(
                             [
