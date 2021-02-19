@@ -8,6 +8,7 @@ use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInte
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Step\StepCollection;
+use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
 use webignition\BasilModels\Test\TestInterface;
 
@@ -69,24 +70,29 @@ class TestResolver
 
         $resolvedSteps = [];
         foreach ($test->getSteps() as $stepName => $step) {
-            try {
-                $resolvedStep = $this->stepImportResolver->resolveStepImport($step, $stepProvider);
-                $resolvedStep = $this->stepImportResolver->resolveDataProviderImport($resolvedStep, $dataSetProvider);
-                $resolvedStep = $this->stepResolver->resolve($resolvedStep, $pageProvider);
-                $resolvedStep = $resolvedStep->withIdentifiers([]);
+            if ($step instanceof StepInterface) {
+                try {
+                    $resolvedStep = $this->stepImportResolver->resolveStepImport($step, $stepProvider);
+                    $resolvedStep = $this->stepImportResolver->resolveDataProviderImport(
+                        $resolvedStep,
+                        $dataSetProvider
+                    );
+                    $resolvedStep = $this->stepResolver->resolve($resolvedStep, $pageProvider);
+                    $resolvedStep = $resolvedStep->withIdentifiers([]);
 
-                $resolvedSteps[$stepName] = $resolvedStep;
-            } catch (
-                UnknownElementException |
-                UnknownItemException |
-                UnknownPageElementException $contextAwareException
-            ) {
-                $contextAwareException->applyExceptionContext([
-                    ExceptionContextInterface::KEY_TEST_NAME => $testName,
-                    ExceptionContextInterface::KEY_STEP_NAME => $stepName,
-                ]);
+                    $resolvedSteps[$stepName] = $resolvedStep;
+                } catch (
+                    UnknownElementException |
+                    UnknownItemException |
+                    UnknownPageElementException $contextAwareException
+                ) {
+                    $contextAwareException->applyExceptionContext([
+                        ExceptionContextInterface::KEY_TEST_NAME => $testName,
+                        ExceptionContextInterface::KEY_STEP_NAME => $stepName,
+                    ]);
 
-                throw $contextAwareException;
+                    throw $contextAwareException;
+                }
             }
         }
 
