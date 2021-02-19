@@ -27,12 +27,15 @@ class PageResolverTest extends \PHPUnit\Framework\TestCase
     public function testResolveSuccess(
         PageInterface $page,
         PageInterface $expectedPage
-    ) {
+    ): void {
         $resolvedPage = $this->resolver->resolve($page);
 
         $this->assertEquals($expectedPage, $resolvedPage);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveSuccessDataProvider(): array
     {
         $pageParser = PageParser::create();
@@ -95,7 +98,7 @@ class PageResolverTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function testResolveUnresolvableReference()
+    public function testResolveUnresolvableReference(): void
     {
         $pageParser = PageParser::create();
 

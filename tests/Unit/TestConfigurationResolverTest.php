@@ -30,12 +30,15 @@ class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
         ConfigurationInterface $configuration,
         ProviderInterface $pageProvider,
         ConfigurationInterface $expectedConfiguration
-    ) {
+    ): void {
         $resolvedConfiguration = $this->resolver->resolve($configuration, $pageProvider);
 
         $this->assertEquals($expectedConfiguration, $resolvedConfiguration);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveDataProvider(): array
     {
         return [

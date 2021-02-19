@@ -51,7 +51,7 @@ class AssertionResolver
         $isIdentifierResolved = $resolvedIdentifier !== $identifier;
 
         if ($assertion->isComparison()) {
-            $value = $assertion->getValue();
+            $value = (string) $assertion->getValue();
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             $isValueResolved = $resolvedValue !== $value;

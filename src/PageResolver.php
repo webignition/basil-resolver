@@ -44,8 +44,8 @@ class PageResolver
         }
 
         if ($unresolvedIdentifierCount > 0 && $previousUnresolvedIdentifierCount === $unresolvedIdentifierCount) {
-            $firstUnresolvedIdentifier = current($unresolvedIdentifiers);
-            $unresolvableParentName = $this->findParentName($firstUnresolvedIdentifier);
+            $firstUnresolvedIdentifier = (string) current($unresolvedIdentifiers);
+            $unresolvableParentName = (string) $this->findParentName($firstUnresolvedIdentifier);
 
             throw new UnknownPageElementException($page->getImportName(), $unresolvableParentName);
         }

@@ -28,12 +28,15 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
         string $pageElementReference,
         ProviderInterface $pageProvider,
         string $expectedIdentifier
-    ) {
+    ): void {
         $identifier = $this->resolver->resolve($pageElementReference, $pageProvider);
 
         $this->assertEquals($expectedIdentifier, $identifier);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveIsResolvedDataProvider(): array
     {
         return [
@@ -73,13 +76,16 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
         string $pageElementReference,
         ProviderInterface $pageProvider,
         string $expectedExceptionMessage
-    ) {
+    ): void {
         $this->expectException(UnknownPageElementException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
         $this->resolver->resolve($pageElementReference, $pageProvider);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveThrowsUnknownPageElementExceptionDataProvider(): array
     {
         return [

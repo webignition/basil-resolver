@@ -29,7 +29,7 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider resolveAlreadyResolvedDataProvider
      */
-    public function testResolveAlreadyResolved(AssertionInterface $assertion)
+    public function testResolveAlreadyResolved(AssertionInterface $assertion): void
     {
         $resolvedAssertion = $this->resolver->resolve(
             $assertion,
@@ -40,6 +40,9 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($assertion, $resolvedAssertion);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveAlreadyResolvedDataProvider(): array
     {
         $assertionParser = AssertionParser::create();
@@ -62,12 +65,15 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider,
         AssertionInterface $expectedAssertion
-    ) {
+    ): void {
         $resolvedAssertion = $this->resolver->resolve($assertion, $pageProvider, $identifierProvider);
 
         $this->assertEquals($expectedAssertion, $resolvedAssertion);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveIsResolvedDataProvider(): array
     {
         $assertionParser = AssertionParser::create();

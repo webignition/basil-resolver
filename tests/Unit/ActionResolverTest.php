@@ -29,7 +29,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider resolveAlreadyResolvedDataProvider
      */
-    public function testResolveAlreadyResolved(ActionInterface $assertion)
+    public function testResolveAlreadyResolved(ActionInterface $assertion): void
     {
         $resolvedAssertion = $this->resolver->resolve(
             $assertion,
@@ -40,6 +40,9 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($assertion, $resolvedAssertion);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveAlreadyResolvedDataProvider(): array
     {
         $actionParser = ActionParser::create();
@@ -62,12 +65,15 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider,
         ActionInterface $expectedAction
-    ) {
+    ): void {
         $resolvedAssertion = $this->resolver->resolve($action, $pageProvider, $identifierProvider);
 
         $this->assertEquals($expectedAction, $resolvedAssertion);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveIsResolvedDataProvider(): array
     {
         $actionParser = ActionParser::create();

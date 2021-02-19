@@ -44,12 +44,15 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         StepInterface $step,
         ProviderInterface $pageProvider,
         StepInterface $expectedStep
-    ) {
+    ): void {
         $resolvedStep = $this->resolver->resolve($step, $pageProvider);
 
         $this->assertEquals($expectedStep, $resolvedStep);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveForPendingImportResolutionStepDataProvider(): array
     {
         return [
@@ -70,6 +73,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveActionsAndAssertionsDataProvider(): array
     {
         $actionParser = ActionParser::create();
@@ -343,6 +349,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveIdentifierCollectionDataProvider(): array
     {
         return [
@@ -431,7 +440,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         StepInterface $step,
         ProviderInterface $pageProvider,
         ContextAwareExceptionInterface $expectedException
-    ) {
+    ): void {
         try {
             $this->resolver->resolve($step, $pageProvider);
 
@@ -441,6 +450,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function resolvePageElementReferencesThrowsExceptionDataProvider(): array
     {
         return [

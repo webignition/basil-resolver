@@ -48,14 +48,14 @@ class ActionResolver
         $resolvedValue = null;
 
         if ($action->isInteraction() || $action->isInput()) {
-            $identifier = $action->getIdentifier();
+            $identifier = (string) $action->getIdentifier();
             $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
 
             $isIdentifierResolved = $resolvedIdentifier !== $identifier;
         }
 
         if ($action->isInput()) {
-            $value = $action->getValue();
+            $value = (string) $action->getValue();
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             $isValueResolved = $resolvedValue !== $value;

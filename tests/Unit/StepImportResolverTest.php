@@ -36,12 +36,15 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
         StepInterface $step,
         ProviderInterface $stepProvider,
         StepInterface $expectedStep
-    ) {
+    ): void {
         $resolvedStep = $this->resolver->resolveStepImport($step, $stepProvider);
 
         $this->assertEquals($expectedStep, $resolvedStep);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveStepImportDataProvider(): array
     {
         $stepParser = StepParser::create();
@@ -147,7 +150,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
         StepInterface $step,
         ProviderInterface $dataSetProvider,
         StepInterface $expectedStep
-    ) {
+    ): void {
         $resolvedStep = $this->resolver->resolveDataProviderImport(
             $step,
             $dataSetProvider
@@ -156,6 +159,9 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedStep, $resolvedStep);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveDataProviderImportDataProvider(): array
     {
         return [
@@ -209,7 +215,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
         StepInterface $step,
         ProviderInterface $stepProvider,
         string $expectedCircularImportName
-    ) {
+    ): void {
         try {
             $this->resolver->resolveStepImport($step, $stepProvider);
 
@@ -219,6 +225,9 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveStepImportThrowsCircularReferenceExceptionDataProvider(): array
     {
         return [

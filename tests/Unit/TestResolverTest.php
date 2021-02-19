@@ -53,12 +53,15 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
         ProviderInterface $stepProvider,
         ProviderInterface $dataSetProvider,
         TestInterface $expectedTest
-    ) {
+    ): void {
         $resolvedTest = $this->resolver->resolve($test, $pageProvider, $stepProvider, $dataSetProvider);
 
         $this->assertEquals($expectedTest, $resolvedTest);
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveSuccessDataProvider(): array
     {
         $actionParser = ActionParser::create();
@@ -525,7 +528,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
         ProviderInterface $stepProvider,
         ProviderInterface $dataSetProvider,
         ContextAwareExceptionInterface $expectedException
-    ) {
+    ): void {
         try {
             $this->resolver->resolve($test, $pageProvider, $stepProvider, $dataSetProvider);
 
@@ -535,6 +538,9 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function resolveThrowsExceptionDataProvider(): array
     {
         $testParser = TestParser::create();
