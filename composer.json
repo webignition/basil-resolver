@@ -46,7 +46,7 @@
     "require-dev": {
         "phpstan/phpstan": "^0.12.77",
         "phpunit/phpunit": "^9.5",
-        "squizlabs/php_codesniffer": "3.*",
+        "squizlabs/php_codesniffer": "^3.5",
         "symplify/easy-coding-standard": "^8.2",
         "webignition/basil-parser": ">=0.25,<1"
     },
