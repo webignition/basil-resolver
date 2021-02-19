@@ -10,9 +10,7 @@ use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Action\ResolvedAction;
-use webignition\BasilModels\Assertion\Assertion;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
 use webignition\BasilModels\Step\Step;
@@ -38,7 +36,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider resolveForPendingImportResolutionStepDataProvider
      * @dataProvider resolveActionsAndAssertionsDataProvider
-     * @!dataProvider resolveIdentifierCollectionDataProvider
+     * @dataProvider resolveIdentifierCollectionDataProvider
      */
     public function testResolveSuccess(
         StepInterface $step,
@@ -354,6 +352,9 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function resolveIdentifierCollectionDataProvider(): array
     {
+        $actionParser = ActionParser::create();
+        $assertionParser = AssertionParser::create();
+
         return [
             'no resolvable element identifiers' => [
                 'step' => $this->createStep([
@@ -410,18 +411,15 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'expectedStep' => (new Step(
                     [
-                        new Action(
-                            'click $page_import_name.elements.page_element_name',
-                            'click',
-                            '$page_import_name.elements.page_element_name',
-                            '$".resolved"'
+                        new ResolvedAction(
+                            $actionParser->parse('click $page_import_name.elements.page_element_name'),
+                            '$".resolved"',
                         ),
                     ],
                     [
-                        new Assertion(
-                            '$page_import_name.elements.page_element_name exists',
-                            '$".resolved"',
-                            'exists'
+                        new ResolvedAssertion(
+                            $assertionParser->parse('$page_import_name.elements.page_element_name exists'),
+                            '$".resolved"'
                         ),
                     ]
                 ))
