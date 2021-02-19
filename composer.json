@@ -44,7 +44,7 @@
         "webignition/php-basil-context-aware-exception": ">=0.3,<1"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan": "^0.12.77",
         "phpunit/phpunit": "~9.0",
         "squizlabs/php_codesniffer": "3.*",
         "symplify/easy-coding-standard": "^8.2",
