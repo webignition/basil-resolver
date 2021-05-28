@@ -22,7 +22,7 @@
         }
     },
     "scripts": {
-        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer fix --dry-run --verbose",
         "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --diff",
         "cs-phpcs": "./vendor/bin/phpcs",
         "cs": [

@@ -748,9 +748,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *
      * @param array<string, string> $context
-     *
      */
     private function applyContextToException(
         ContextAwareExceptionInterface $contextAwareException,
