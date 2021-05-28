@@ -42,16 +42,6 @@ class TestConfigurationResolverTest extends \PHPUnit\Framework\TestCase
     public function resolveDataProvider(): array
     {
         return [
-            'empty' => [
-                'configuration' => new Configuration('', ''),
-                'pageProvider' => new EmptyPageProvider(),
-                'expectedConfiguration' => new Configuration('', ''),
-            ],
-            'browser only' => [
-                'configuration' => new Configuration('chrome', ''),
-                'pageProvider' => new EmptyPageProvider(),
-                'expectedConfiguration' => new Configuration('chrome', ''),
-            ],
             'literal url' => [
                 'configuration' => new Configuration('chrome', 'http://example.com/'),
                 'pageProvider' => new EmptyPageProvider(),

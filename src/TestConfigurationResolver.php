@@ -6,16 +6,21 @@ namespace webignition\BasilResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\Page\PageInterface;
-use webignition\BasilModels\PageUrlReference\PageUrlReference;
 use webignition\BasilModels\Test\Configuration;
 use webignition\BasilModels\Test\ConfigurationInterface;
 
 class TestConfigurationResolver
 {
+    public function __construct(
+        private ImportedUrlResolver $importedUrlResolver
+    ) {
+    }
+
     public static function createResolver(): TestConfigurationResolver
     {
-        return new TestConfigurationResolver();
+        return new TestConfigurationResolver(
+            ImportedUrlResolver::createResolver()
+        );
     }
 
     /**
@@ -25,17 +30,9 @@ class TestConfigurationResolver
         ConfigurationInterface $configuration,
         ProviderInterface $pageProvider
     ): ConfigurationInterface {
-        $url = $configuration->getUrl();
-
-        $pageUrlReference = new PageUrlReference($url);
-        if ($pageUrlReference->isValid()) {
-            $page = $pageProvider->find($pageUrlReference->getImportName());
-
-            if ($page instanceof PageInterface) {
-                $url = (string) $page->getUrl();
-            }
-        }
-
-        return new Configuration($configuration->getBrowser(), $url);
+        return new Configuration(
+            $configuration->getBrowser(),
+            $this->importedUrlResolver->resolve($configuration->getUrl(), $pageProvider)
+        );
     }
 }
