@@ -49,7 +49,6 @@
         "phpstan/phpstan": "^0.12.88",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
-        "symplify/easy-coding-standard": "^9.1",
         "webignition/basil-parser": "^0.26.0"
     },
     "config": {
