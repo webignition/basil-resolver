@@ -12,14 +12,16 @@ use webignition\BasilModels\Assertion\ResolvedAssertion;
 class AssertionResolver
 {
     public function __construct(
-        private ElementResolver $elementResolver
+        private ElementResolver $elementResolver,
+        private ImportedUrlResolver $importedUrlResolver
     ) {
     }
 
     public static function createResolver(): AssertionResolver
     {
         return new AssertionResolver(
-            ElementResolver::createResolver()
+            ElementResolver::createResolver(),
+            ImportedUrlResolver::createResolver()
         );
     }
 
@@ -34,8 +36,6 @@ class AssertionResolver
         ProviderInterface $identifierProvider
     ): AssertionInterface {
         $isValueResolved = false;
-
-        $resolvedIdentifier = null;
         $resolvedValue = null;
 
         $identifier = $assertion->getIdentifier();
@@ -47,6 +47,15 @@ class AssertionResolver
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             $isValueResolved = $resolvedValue !== $value;
+
+            if (false === $isValueResolved) {
+                $resolvedValue = $this->importedUrlResolver->resolve($value, $pageProvider);
+
+                if ($resolvedValue !== $value) {
+                    $resolvedValue = '"' . $resolvedValue . '"';
+                    $isValueResolved = true;
+                }
+            }
         }
 
         if ($isIdentifierResolved || $isValueResolved) {
