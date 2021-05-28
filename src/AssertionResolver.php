@@ -8,6 +8,7 @@ use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
+use webignition\BasilModels\PageProperty\PageProperty;
 
 class AssertionResolver
 {
@@ -41,6 +42,15 @@ class AssertionResolver
         $identifier = $assertion->getIdentifier();
         $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
         $isIdentifierResolved = $resolvedIdentifier !== $identifier;
+
+        if (false === $isIdentifierResolved && false === PageProperty::is($resolvedIdentifier)) {
+            $resolvedIdentifier = $this->importedUrlResolver->resolve($resolvedIdentifier, $pageProvider);
+
+            if ($resolvedIdentifier !== $identifier) {
+                $resolvedIdentifier = '"' . $resolvedIdentifier . '"';
+                $isIdentifierResolved = true;
+            }
+        }
 
         if ($assertion->isComparison()) {
             $value = (string) $assertion->getValue();

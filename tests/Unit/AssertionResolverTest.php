@@ -215,6 +215,18 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
                     '"http://example.com"'
                 ),
             ],
+            'is assertion with page url identifier and literal value' => [
+                'assertion' => $assertionParser->parse('$page_import_name.url is "http://example.com"'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page('page_import_name', 'http://example.com'),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedAssertion' => new ResolvedAssertion(
+                    $assertionParser->parse('$page_import_name.url is "http://example.com"'),
+                    '"http://example.com"',
+                    '"http://example.com"'
+                ),
+            ],
         ];
     }
 }
