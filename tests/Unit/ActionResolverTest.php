@@ -119,7 +119,7 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     '"value"'
                 ),
             ],
-            'input assertion with page element reference identifier and literal value' => [
+            'input action with page element reference identifier and literal value' => [
                 'action' => $actionParser->parse('set $page_import_name.elements.element_name to "value"'),
                 'pageProvider' => new PageProvider([
                     'page_import_name' => new Page(
@@ -201,6 +201,18 @@ class ActionResolverTest extends \PHPUnit\Framework\TestCase
                     ),
                     '$".one"',
                     '$".two"'
+                ),
+            ],
+            'input action with dom identifier and imported page url value' => [
+                'action' => $actionParser->parse('set $".selector" to $page_import_name.url'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page('page_import_name', 'http://example.com'),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedAction' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $page_import_name.url'),
+                    '$".selector"',
+                    '"http://example.com"'
                 ),
             ],
         ];

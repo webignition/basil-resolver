@@ -12,14 +12,16 @@ use webignition\BasilModels\Action\ResolvedAction;
 class ActionResolver
 {
     public function __construct(
-        private ElementResolver $elementResolver
+        private ElementResolver $elementResolver,
+        private ImportedUrlResolver $importedUrlResolver
     ) {
     }
 
     public static function createResolver(): ActionResolver
     {
         return new ActionResolver(
-            ElementResolver::createResolver()
+            ElementResolver::createResolver(),
+            ImportedUrlResolver::createResolver()
         );
     }
 
@@ -51,6 +53,15 @@ class ActionResolver
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             $isValueResolved = $resolvedValue !== $value;
+
+            if (false === $isValueResolved) {
+                $resolvedValue = $this->importedUrlResolver->resolve($value, $pageProvider);
+
+                if ($resolvedValue !== $value) {
+                    $resolvedValue = '"' . $resolvedValue . '"';
+                    $isValueResolved = true;
+                }
+            }
         }
 
         if ($isIdentifierResolved || $isValueResolved) {
