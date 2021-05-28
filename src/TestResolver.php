@@ -14,18 +14,11 @@ use webignition\BasilModels\Test\TestInterface;
 
 class TestResolver
 {
-    private TestConfigurationResolver $configurationResolver;
-    private StepResolver $stepResolver;
-    private StepImportResolver $stepImportResolver;
-
     public function __construct(
-        TestConfigurationResolver $configurationResolver,
-        StepResolver $stepResolver,
-        StepImportResolver $stepImportResolver
+        private TestConfigurationResolver $configurationResolver,
+        private StepResolver $stepResolver,
+        private StepImportResolver $stepImportResolver
     ) {
-        $this->configurationResolver = $configurationResolver;
-        $this->stepResolver = $stepResolver;
-        $this->stepImportResolver = $stepImportResolver;
     }
 
     public static function createResolver(): TestResolver
@@ -38,13 +31,6 @@ class TestResolver
     }
 
     /**
-     * @param TestInterface $test
-     * @param ProviderInterface $pageProvider
-     * @param ProviderInterface $stepProvider
-     * @param ProviderInterface $dataSetProvider
-     *
-     * @return TestInterface
-     *
      * @throws CircularStepImportException
      * @throws UnknownElementException
      * @throws UnknownItemException

@@ -6,12 +6,9 @@ namespace webignition\BasilResolver;
 
 class CircularStepImportException extends \Exception
 {
-    private string $importName = '';
-
-    public function __construct(string $importName)
-    {
-        $this->importName = $importName;
-
+    public function __construct(
+        private string $importName
+    ) {
         parent::__construct('Circular step import "' . $importName . '"');
     }
 

@@ -17,11 +17,7 @@ class StepImportResolver
     }
 
     /**
-     * @param StepInterface $step
-     * @param ProviderInterface $stepProvider
      * @param string[] $handledImportNames
-     *
-     * @return StepInterface
      *
      * @throws CircularStepImportException
      * @throws UnknownItemException
@@ -56,10 +52,6 @@ class StepImportResolver
     }
 
     /**
-     * @param StepInterface $step
-     * @param ProviderInterface $dataSetProvider
-     *
-     * @return StepInterface
      *
      * @throws UnknownItemException
      */

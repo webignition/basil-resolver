@@ -16,10 +16,6 @@ class PageResolver
     }
 
     /**
-     * @param PageInterface $page
-     *
-     * @return PageInterface
-     *
      * @throws UnknownPageElementException
      */
     public function resolve(PageInterface $page): PageInterface

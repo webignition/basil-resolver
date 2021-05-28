@@ -11,11 +11,9 @@ use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class PageElementReferenceResolver
 {
-    private PageResolver $pageResolver;
-
-    public function __construct(PageResolver $pageResolver)
-    {
-        $this->pageResolver = $pageResolver;
+    public function __construct(
+        private PageResolver $pageResolver
+    ) {
     }
 
     public static function createResolver(): PageElementReferenceResolver
@@ -26,11 +24,6 @@ class PageElementReferenceResolver
     }
 
     /**
-     * @param string $pageElementReference
-     * @param ProviderInterface $pageProvider
-     *
-     * @return string
-     *
      * @throws UnknownPageElementException
      * @throws UnknownItemException
      */
