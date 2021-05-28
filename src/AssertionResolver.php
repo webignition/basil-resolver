@@ -8,18 +8,21 @@ use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
+use webignition\BasilModels\PageProperty\PageProperty;
 
 class AssertionResolver
 {
     public function __construct(
-        private ElementResolver $elementResolver
+        private ElementResolver $elementResolver,
+        private ImportedUrlResolver $importedUrlResolver
     ) {
     }
 
     public static function createResolver(): AssertionResolver
     {
         return new AssertionResolver(
-            ElementResolver::createResolver()
+            ElementResolver::createResolver(),
+            ImportedUrlResolver::createResolver()
         );
     }
 
@@ -34,19 +37,35 @@ class AssertionResolver
         ProviderInterface $identifierProvider
     ): AssertionInterface {
         $isValueResolved = false;
-
-        $resolvedIdentifier = null;
         $resolvedValue = null;
 
         $identifier = $assertion->getIdentifier();
         $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
         $isIdentifierResolved = $resolvedIdentifier !== $identifier;
 
+        if (false === $isIdentifierResolved && false === PageProperty::is($resolvedIdentifier)) {
+            $resolvedIdentifier = $this->importedUrlResolver->resolve($resolvedIdentifier, $pageProvider);
+
+            if ($resolvedIdentifier !== $identifier) {
+                $resolvedIdentifier = '"' . $resolvedIdentifier . '"';
+                $isIdentifierResolved = true;
+            }
+        }
+
         if ($assertion->isComparison()) {
             $value = (string) $assertion->getValue();
             $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
 
             $isValueResolved = $resolvedValue !== $value;
+
+            if (false === $isValueResolved) {
+                $resolvedValue = $this->importedUrlResolver->resolve($value, $pageProvider);
+
+                if ($resolvedValue !== $value) {
+                    $resolvedValue = '"' . $resolvedValue . '"';
+                    $isValueResolved = true;
+                }
+            }
         }
 
         if ($isIdentifierResolved || $isValueResolved) {
