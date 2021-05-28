@@ -43,7 +43,8 @@ class StepImportResolver
 
             $step = $step
                 ->withPrependedActions($parentStep->getActions())
-                ->withPrependedAssertions($parentStep->getAssertions());
+                ->withPrependedAssertions($parentStep->getAssertions())
+            ;
 
             $step = $step->removeImportName();
         }
@@ -52,7 +53,6 @@ class StepImportResolver
     }
 
     /**
-     *
      * @throws UnknownItemException
      */
     public function resolveDataProviderImport(
