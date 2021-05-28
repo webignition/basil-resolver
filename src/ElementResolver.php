@@ -12,11 +12,9 @@ use webignition\BasilModels\PageElementReference\PageElementReference;
 
 class ElementResolver
 {
-    private PageElementReferenceResolver $pageElementReferenceResolver;
-
-    public function __construct(PageElementReferenceResolver $pageElementReferenceResolver)
-    {
-        $this->pageElementReferenceResolver = $pageElementReferenceResolver;
+    public function __construct(
+        private PageElementReferenceResolver $pageElementReferenceResolver
+    ) {
     }
 
     public static function createResolver(): ElementResolver
@@ -27,12 +25,6 @@ class ElementResolver
     }
 
     /**
-     * @param string $value
-     * @param ProviderInterface $pageProvider
-     * @param ProviderInterface $identifierProvider
-     *
-     * @return string
-     *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
      * @throws UnknownItemException

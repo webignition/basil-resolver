@@ -19,11 +19,6 @@ class TestConfigurationResolver
     }
 
     /**
-     * @param ConfigurationInterface $configuration
-     * @param ProviderInterface $pageProvider
-     *
-     * @return ConfigurationInterface
-     *
      * @throws UnknownItemException
      */
     public function resolve(

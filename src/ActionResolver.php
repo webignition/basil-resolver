@@ -11,11 +11,9 @@ use webignition\BasilModels\Action\ResolvedAction;
 
 class ActionResolver
 {
-    private ElementResolver $elementResolver;
-
-    public function __construct(ElementResolver $referencedElementResolver)
-    {
-        $this->elementResolver = $referencedElementResolver;
+    public function __construct(
+        private ElementResolver $elementResolver
+    ) {
     }
 
     public static function createResolver(): ActionResolver
@@ -26,12 +24,6 @@ class ActionResolver
     }
 
     /**
-     * @param ActionInterface $action
-     * @param ProviderInterface $pageProvider
-     * @param ProviderInterface $identifierProvider
-     *
-     * @return ActionInterface
-     *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
      * @throws UnknownItemException

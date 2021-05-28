@@ -11,11 +11,9 @@ use webignition\BasilModels\Assertion\ResolvedAssertion;
 
 class AssertionResolver
 {
-    private ElementResolver $elementResolver;
-
-    public function __construct(ElementResolver $elementResolver)
-    {
-        $this->elementResolver = $elementResolver;
+    public function __construct(
+        private ElementResolver $elementResolver
+    ) {
     }
 
     public static function createResolver(): AssertionResolver
@@ -26,12 +24,6 @@ class AssertionResolver
     }
 
     /**
-     * @param AssertionInterface $assertion
-     * @param ProviderInterface $pageProvider
-     * @param ProviderInterface $identifierProvider
-     *
-     * @return AssertionInterface
-     *
      * @throws UnknownElementException
      * @throws UnknownPageElementException
      * @throws UnknownItemException

@@ -535,8 +535,6 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @param array<mixed> $stepData
-     *
-     * @return StepInterface
      */
     private function createStep(array $stepData): StepInterface
     {
