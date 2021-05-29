@@ -8,22 +8,25 @@ use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
-use webignition\BasilModels\PageProperty\PageProperty;
 
 class AssertionResolver
 {
+    /**
+     * @param StatementComponentResolverInterface[] $componentResolvers
+     */
     public function __construct(
-        private ElementResolver $elementResolver,
-        private ImportedUrlResolver $importedUrlResolver
+        private array $componentResolvers
     ) {
     }
 
     public static function createResolver(): AssertionResolver
     {
-        return new AssertionResolver(
-            ElementResolver::createResolver(),
-            ImportedUrlResolver::createResolver()
-        );
+        return new AssertionResolver([
+            StatementIdentifierElementResolver::createResolver(),
+            StatementValueElementResolver::createResolver(),
+            StatementValueUrlResolver::createResolver(),
+            StatementIdentifierUrlResolver::createResolver(),
+        ]);
     }
 
     /**
@@ -36,33 +39,23 @@ class AssertionResolver
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): AssertionInterface {
+        $isIdentifierResolved = false;
         $isValueResolved = false;
+
+        $resolvedIdentifier = null;
         $resolvedValue = null;
 
-        $identifier = $assertion->getIdentifier();
-        $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
-        $isIdentifierResolved = $resolvedIdentifier !== $identifier;
+        foreach ($this->componentResolvers as $componentResolver) {
+            $resolvedComponent = $componentResolver->resolve($assertion, $pageProvider, $identifierProvider);
 
-        if (false === $isIdentifierResolved && false === PageProperty::is($resolvedIdentifier)) {
-            $resolvedIdentifier = $this->importedUrlResolver->resolve($resolvedIdentifier, $pageProvider);
+            if ($resolvedComponent instanceof ResolvedComponentInterface && $resolvedComponent->isResolved()) {
+                if (ResolvedComponentInterface::TYPE_IDENTIFIER === $resolvedComponent->getType()) {
+                    $resolvedIdentifier = $resolvedComponent->getResolved();
+                    $isIdentifierResolved = true;
+                }
 
-            if ($resolvedIdentifier !== $identifier) {
-                $resolvedIdentifier = '"' . $resolvedIdentifier . '"';
-                $isIdentifierResolved = true;
-            }
-        }
-
-        if ($assertion->isComparison()) {
-            $value = (string) $assertion->getValue();
-            $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
-
-            $isValueResolved = $resolvedValue !== $value;
-
-            if (false === $isValueResolved) {
-                $resolvedValue = $this->importedUrlResolver->resolve($value, $pageProvider);
-
-                if ($resolvedValue !== $value) {
-                    $resolvedValue = '"' . $resolvedValue . '"';
+                if (ResolvedComponentInterface::TYPE_VALUE === $resolvedComponent->getType()) {
+                    $resolvedValue = $resolvedComponent->getResolved();
                     $isValueResolved = true;
                 }
             }
@@ -72,7 +65,7 @@ class AssertionResolver
             $identifier = $isIdentifierResolved ? $resolvedIdentifier : $assertion->getIdentifier();
             $value = $isValueResolved ? $resolvedValue : $assertion->getValue();
 
-            $assertion = new ResolvedAssertion($assertion, $identifier, $value);
+            $assertion = new ResolvedAssertion($assertion, (string) $identifier, $value);
         }
 
         return $assertion;

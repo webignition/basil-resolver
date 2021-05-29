@@ -11,18 +11,21 @@ use webignition\BasilModels\Action\ResolvedAction;
 
 class ActionResolver
 {
+    /**
+     * @param StatementComponentResolverInterface[] $componentResolvers
+     */
     public function __construct(
-        private ElementResolver $elementResolver,
-        private ImportedUrlResolver $importedUrlResolver
+        private array $componentResolvers
     ) {
     }
 
     public static function createResolver(): ActionResolver
     {
-        return new ActionResolver(
-            ElementResolver::createResolver(),
-            ImportedUrlResolver::createResolver()
-        );
+        return new ActionResolver([
+            StatementIdentifierElementResolver::createResolver(),
+            StatementValueElementResolver::createResolver(),
+            StatementValueUrlResolver::createResolver(),
+        ]);
     }
 
     /**
@@ -41,24 +44,17 @@ class ActionResolver
         $resolvedIdentifier = null;
         $resolvedValue = null;
 
-        if ($action->isInteraction() || $action->isInput()) {
-            $identifier = (string) $action->getIdentifier();
-            $resolvedIdentifier = $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider);
+        foreach ($this->componentResolvers as $componentResolver) {
+            $resolvedComponent = $componentResolver->resolve($action, $pageProvider, $identifierProvider);
 
-            $isIdentifierResolved = $resolvedIdentifier !== $identifier;
-        }
+            if ($resolvedComponent instanceof ResolvedComponentInterface && $resolvedComponent->isResolved()) {
+                if (ResolvedComponentInterface::TYPE_IDENTIFIER === $resolvedComponent->getType()) {
+                    $resolvedIdentifier = $resolvedComponent->getResolved();
+                    $isIdentifierResolved = true;
+                }
 
-        if ($action->isInput()) {
-            $value = (string) $action->getValue();
-            $resolvedValue = $this->elementResolver->resolve($value, $pageProvider, $identifierProvider);
-
-            $isValueResolved = $resolvedValue !== $value;
-
-            if (false === $isValueResolved) {
-                $resolvedValue = $this->importedUrlResolver->resolve($value, $pageProvider);
-
-                if ($resolvedValue !== $value) {
-                    $resolvedValue = '"' . $resolvedValue . '"';
+                if (ResolvedComponentInterface::TYPE_VALUE === $resolvedComponent->getType()) {
+                    $resolvedValue = $resolvedComponent->getResolved();
                     $isValueResolved = true;
                 }
             }
