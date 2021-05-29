@@ -7,18 +7,10 @@ namespace webignition\BasilResolver;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\Assertion\ResolvedAssertion;
+use webignition\BasilModels\StatementInterface;
 
-class AssertionResolver
+class AssertionResolver extends AbstractStatementResolver
 {
-    /**
-     * @param StatementComponentResolverInterface[] $componentResolvers
-     */
-    public function __construct(
-        private array $componentResolvers
-    ) {
-    }
-
     public static function createResolver(): AssertionResolver
     {
         return new AssertionResolver([
@@ -39,35 +31,8 @@ class AssertionResolver
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): AssertionInterface {
-        $isIdentifierResolved = false;
-        $isValueResolved = false;
+        $resolvedAssertion = $this->doResolve($assertion, $pageProvider, $identifierProvider);
 
-        $resolvedIdentifier = null;
-        $resolvedValue = null;
-
-        foreach ($this->componentResolvers as $componentResolver) {
-            $resolvedComponent = $componentResolver->resolve($assertion, $pageProvider, $identifierProvider);
-
-            if ($resolvedComponent instanceof ResolvedComponentInterface && $resolvedComponent->isResolved()) {
-                if (ResolvedComponentInterface::TYPE_IDENTIFIER === $resolvedComponent->getType()) {
-                    $resolvedIdentifier = $resolvedComponent->getResolved();
-                    $isIdentifierResolved = true;
-                }
-
-                if (ResolvedComponentInterface::TYPE_VALUE === $resolvedComponent->getType()) {
-                    $resolvedValue = $resolvedComponent->getResolved();
-                    $isValueResolved = true;
-                }
-            }
-        }
-
-        if ($isIdentifierResolved || $isValueResolved) {
-            $identifier = $isIdentifierResolved ? $resolvedIdentifier : $assertion->getIdentifier();
-            $value = $isValueResolved ? $resolvedValue : $assertion->getValue();
-
-            $assertion = new ResolvedAssertion($assertion, (string) $identifier, $value);
-        }
-
-        return $assertion;
+        return $resolvedAssertion instanceof AssertionInterface ? $resolvedAssertion : $assertion;
     }
 }
