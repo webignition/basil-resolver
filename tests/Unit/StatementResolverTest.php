@@ -9,41 +9,61 @@ use webignition\BasilModelProvider\Identifier\IdentifierProvider;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\Assertion\AssertionInterface;
+use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
+use webignition\BasilModels\StatementInterface;
+use webignition\BasilParser\ActionParser;
 use webignition\BasilParser\AssertionParser;
-use webignition\BasilResolver\AssertionResolver;
+use webignition\BasilResolver\StatementResolver;
 
-class AssertionResolverTest extends \PHPUnit\Framework\TestCase
+class StatementResolverTest extends \PHPUnit\Framework\TestCase
 {
-    private AssertionResolver $resolver;
+    private StatementResolver $resolver;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->resolver = AssertionResolver::createResolver();
+        $this->resolver = StatementResolver::createResolver();
     }
 
     /**
-     * @dataProvider resolveAlreadyResolvedDataProvider
+     * @dataProvider resolveAlreadyResolvedActionDataProvider
+     * @dataProvider resolveAlreadyResolvedAssertionDataProvider
      */
-    public function testResolveAlreadyResolved(AssertionInterface $assertion): void
+    public function testResolveAlreadyResolved(StatementInterface $statement): void
     {
-        $resolvedAssertion = $this->resolver->resolve(
-            $assertion,
+        $resolvedStatement = $this->resolver->resolve(
+            $statement,
             new EmptyPageProvider(),
             new EmptyIdentifierProvider()
         );
 
-        $this->assertSame($assertion, $resolvedAssertion);
+        $this->assertSame($statement, $resolvedStatement);
     }
 
     /**
      * @return array[]
      */
-    public function resolveAlreadyResolvedDataProvider(): array
+    public function resolveAlreadyResolvedActionDataProvider(): array
+    {
+        $actionParser = ActionParser::create();
+
+        return [
+            'interaction action' => [
+                'statement' => $actionParser->parse('click $".selector"'),
+            ],
+            'input action' => [
+                'statement' => $actionParser->parse('set $".selector" to "value"'),
+            ],
+        ];
+    }
+
+    /**
+     * @return array[]
+     */
+    public function resolveAlreadyResolvedAssertionDataProvider(): array
     {
         $assertionParser = AssertionParser::create();
 
@@ -58,23 +78,171 @@ class AssertionResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider resolveIsResolvedDataProvider
+     * @dataProvider resolveIsResolvedActionDataProvider
+     * @dataProvider resolveIsResolvedAssertionDataProvider
      */
     public function testResolveIsResolved(
-        AssertionInterface $assertion,
+        StatementInterface $statement,
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider,
-        AssertionInterface $expectedAssertion
+        StatementInterface $expectedStatement
     ): void {
-        $resolvedAssertion = $this->resolver->resolve($assertion, $pageProvider, $identifierProvider);
+        $resolvedAssertion = $this->resolver->resolve($statement, $pageProvider, $identifierProvider);
 
-        $this->assertEquals($expectedAssertion, $resolvedAssertion);
+        $this->assertEquals($expectedStatement, $resolvedAssertion);
     }
 
     /**
      * @return array[]
      */
-    public function resolveIsResolvedDataProvider(): array
+    public function resolveIsResolvedActionDataProvider(): array
+    {
+        $actionParser = ActionParser::create();
+
+        return [
+            'interaction action with element reference identifier' => [
+                'statement' => $actionParser->parse('click $elements.element_name'),
+                'pageProvider' => new EmptyPageProvider(),
+                'identifierProvider' => new IdentifierProvider([
+                    'element_name' => '$".selector"',
+                ]),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('click $elements.element_name'),
+                    '$".selector"'
+                ),
+            ],
+            'interaction action with page element reference identifier' => [
+                'statement' => $actionParser->parse('click $page_import_name.elements.element_name'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page(
+                        'page_import_name',
+                        'http://example.com',
+                        [
+                            'element_name' => '$".selector"',
+                        ]
+                    ),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('click $page_import_name.elements.element_name'),
+                    '$".selector"'
+                ),
+            ],
+            'input action with element reference identifier and literal value' => [
+                'statement' => $actionParser->parse('set $elements.element_name to "value"'),
+                'pageProvider' => new EmptyPageProvider(),
+                'identifierProvider' => new IdentifierProvider([
+                    'element_name' => '$".selector"',
+                ]),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $elements.element_name to "value"'),
+                    '$".selector"',
+                    '"value"'
+                ),
+            ],
+            'input action with page element reference identifier and literal value' => [
+                'statement' => $actionParser->parse('set $page_import_name.elements.element_name to "value"'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page(
+                        'page_import_name',
+                        'http://example.com',
+                        [
+                            'element_name' => '$".selector"',
+                        ]
+                    ),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $page_import_name.elements.element_name to "value"'),
+                    '$".selector"',
+                    '"value"'
+                ),
+            ],
+            'input action with dom identifier and element reference value' => [
+                'statement' => $actionParser->parse('set $".selector" to $elements.element_name'),
+                'pageProvider' => new EmptyPageProvider(),
+                'identifierProvider' => new IdentifierProvider([
+                    'element_name' => '$".resolved"',
+                ]),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $elements.element_name'),
+                    '$".selector"',
+                    '$".resolved"'
+                ),
+            ],
+            'input action with dom identifier and page element reference value' => [
+                'statement' => $actionParser->parse('set $".selector" to $page_import_name.elements.element_name'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page(
+                        'page_import_name',
+                        'http://example.com',
+                        [
+                            'element_name' => '$".resolved"',
+                        ]
+                    ),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $page_import_name.elements.element_name'),
+                    '$".selector"',
+                    '$".resolved"'
+                ),
+            ],
+            'input action with element reference identifier and element reference value' => [
+                'statement' => $actionParser->parse('set $elements.element_one to $elements.element_two'),
+                'pageProvider' => new EmptyPageProvider(),
+                'identifierProvider' => new IdentifierProvider([
+                    'element_one' => '$".one"',
+                    'element_two' => '$".two"',
+                ]),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $elements.element_one to $elements.element_two'),
+                    '$".one"',
+                    '$".two"'
+                ),
+            ],
+            'input action with page element reference identifier and page element reference value' => [
+                'statement' => $actionParser->parse(
+                    'set $page_import_name.elements.element_one to $page_import_name.elements.element_two'
+                ),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page(
+                        'page_import_name',
+                        'http://example.com',
+                        [
+                            'element_one' => '$".one"',
+                            'element_two' => '$".two"',
+                        ]
+                    ),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse(
+                        'set $page_import_name.elements.element_one to $page_import_name.elements.element_two'
+                    ),
+                    '$".one"',
+                    '$".two"'
+                ),
+            ],
+            'input action with dom identifier and imported page url value' => [
+                'statement' => $actionParser->parse('set $".selector" to $page_import_name.url'),
+                'pageProvider' => new PageProvider([
+                    'page_import_name' => new Page('page_import_name', 'http://example.com'),
+                ]),
+                'identifierProvider' => new EmptyIdentifierProvider(),
+                'expectedStatement' => new ResolvedAction(
+                    $actionParser->parse('set $".selector" to $page_import_name.url'),
+                    '$".selector"',
+                    '"http://example.com"'
+                ),
+            ],
+        ];
+    }
+
+    /**
+     * @return array[]
+     */
+    public function resolveIsResolvedAssertionDataProvider(): array
     {
         $assertionParser = AssertionParser::create();
 
