@@ -43,21 +43,6 @@ class StatementResolver
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): StatementInterface {
-        $resolvedStatement = $this->doResolve($statement, $pageProvider, $identifierProvider);
-
-        return $resolvedStatement ?? $statement;
-    }
-
-    /**
-     * @throws UnknownElementException
-     * @throws UnknownPageElementException
-     * @throws UnknownItemException
-     */
-    protected function doResolve(
-        StatementInterface $statement,
-        ProviderInterface $pageProvider,
-        ProviderInterface $identifierProvider
-    ): ?StatementInterface {
         $resolvedIdentifier = null;
         $resolvedValue = null;
 
@@ -75,7 +60,9 @@ class StatementResolver
             }
         }
 
-        return $this->createResolvedStatement($statement, $resolvedIdentifier, $resolvedValue);
+        $resolvedStatement = $this->createResolvedStatement($statement, $resolvedIdentifier, $resolvedValue);
+
+        return $resolvedStatement ?? $statement;
     }
 
     private function createResolvedStatement(
