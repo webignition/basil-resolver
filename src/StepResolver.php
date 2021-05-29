@@ -16,8 +16,7 @@ use webignition\BasilModels\Step\StepInterface;
 class StepResolver
 {
     public function __construct(
-        private ActionResolver $actionResolver,
-        private AssertionResolver $assertionResolver,
+        private StatementResolver $statementResolver,
         private ElementResolver $elementResolver
     ) {
     }
@@ -25,8 +24,7 @@ class StepResolver
     public static function createResolver(): StepResolver
     {
         return new StepResolver(
-            ActionResolver::createResolver(),
-            AssertionResolver::createResolver(),
+            StatementResolver::createResolver(),
             ElementResolver::createResolver()
         );
     }
@@ -82,7 +80,7 @@ class StepResolver
 
         try {
             foreach ($step->getActions() as $action) {
-                $resolvedActions[] = $this->actionResolver->resolve($action, $pageProvider, $identifierProvider);
+                $resolvedActions[] = $this->statementResolver->resolve($action, $pageProvider, $identifierProvider);
             }
         } catch (
             UnknownElementException |
@@ -97,6 +95,10 @@ class StepResolver
 
             throw $contextAwareException;
         }
+
+        $resolvedActions = array_filter($resolvedActions, function ($item) {
+            return $item instanceof ActionInterface;
+        });
 
         return $step->withActions($resolvedActions);
     }
@@ -114,7 +116,7 @@ class StepResolver
 
         try {
             foreach ($step->getAssertions() as $assertion) {
-                $resolvedAssertions[] = $this->assertionResolver->resolve(
+                $resolvedAssertions[] = $this->statementResolver->resolve(
                     $assertion,
                     $pageProvider,
                     $identifierProvider
@@ -133,6 +135,10 @@ class StepResolver
 
             throw $contextAwareException;
         }
+
+        $resolvedAssertions = array_filter($resolvedAssertions, function ($item) {
+            return $item instanceof AssertionInterface;
+        });
 
         return $step->withAssertions($resolvedAssertions);
     }

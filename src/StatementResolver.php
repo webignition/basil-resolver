@@ -13,7 +13,7 @@ use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\EncapsulatingStatementInterface;
 use webignition\BasilModels\StatementInterface;
 
-abstract class AbstractStatementResolver
+class StatementResolver
 {
     /**
      * @param StatementComponentResolverInterface[] $componentResolvers
@@ -31,6 +31,21 @@ abstract class AbstractStatementResolver
             StatementValueUrlResolver::createResolver(),
             StatementIdentifierUrlResolver::createResolver(),
         ]);
+    }
+
+    /**
+     * @throws UnknownElementException
+     * @throws UnknownPageElementException
+     * @throws UnknownItemException
+     */
+    public function resolve(
+        StatementInterface $statement,
+        ProviderInterface $pageProvider,
+        ProviderInterface $identifierProvider
+    ): StatementInterface {
+        $resolvedStatement = $this->doResolve($statement, $pageProvider, $identifierProvider);
+
+        return $resolvedStatement ?? $statement;
     }
 
     /**
