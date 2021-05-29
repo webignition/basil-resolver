@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42a846b8084e2c046e17a4cb593d4b43",
+    "content-hash": "dbc2f02f6fb82a65831a4738b0bdfe0e",
     "packages": [
         {
             "name": "webignition/basil-model-provider",
@@ -57,27 +57,29 @@
         },
         {
             "name": "webignition/basil-models",
-            "version": "0.58",
+            "version": "0.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-models.git",
-                "reference": "2184f3719e5cd91a9029f30b6e84114d22f29e20"
+                "reference": "dedfdea99b3d90623f31cf4de15153fc7bc3925d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-models/zipball/2184f3719e5cd91a9029f30b6e84114d22f29e20",
-                "reference": "2184f3719e5cd91a9029f30b6e84114d22f29e20",
+                "url": "https://api.github.com/repos/webignition/basil-models/zipball/dedfdea99b3d90623f31cf4de15153fc7bc3925d",
+                "reference": "dedfdea99b3d90623f31cf4de15153fc7bc3925d",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.4|^8"
+                "php": ">=8"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.77",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^0.12.88",
+                "phpstan/phpstan-phpunit": "^0.12.19",
                 "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symplify/easy-coding-standard": "^9.1",
+                "squizlabs/php_codesniffer": "^3.6",
                 "webignition/object-reflector": "^0.1.0"
             },
             "type": "library",
@@ -99,9 +101,9 @@
             "homepage": "https://github.com/webignition/basil-models",
             "support": {
                 "issues": "https://github.com/webignition/basil-models/issues",
-                "source": "https://github.com/webignition/basil-models/tree/0.58"
+                "source": "https://github.com/webignition/basil-models/tree/0.59"
             },
-            "time": "2021-02-18T15:16:57+00:00"
+            "time": "2021-05-29T10:06:40+00:00"
         },
         {
             "name": "webignition/php-basil-context-aware-exception",
