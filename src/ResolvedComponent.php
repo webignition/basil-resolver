@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
-class ResolvedComponent implements ResolvedComponentInterface
+class ResolvedComponent
 {
     /**
-     * @param ResolvedComponentInterface::TYPE_* $type
-     * @param null|string                        $source
-     * @param null|string                        $resolved
+     * @param null|string $source
+     * @param null|string $resolved
      */
     public function __construct(
-        private string $type,
         private ?string $source,
         private ?string $resolved
     ) {
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function getSource(): ?string

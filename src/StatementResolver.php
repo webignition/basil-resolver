@@ -12,11 +12,9 @@ use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\EncapsulatingStatementInterface;
 use webignition\BasilModels\StatementInterface;
+use webignition\BasilResolver\StatementComponentResolver\ComponentElementResolver;
+use webignition\BasilResolver\StatementComponentResolver\ComponentUrlResolver;
 use webignition\BasilResolver\StatementComponentResolver\StatementComponentResolverInterface;
-use webignition\BasilResolver\StatementComponentResolver\StatementIdentifierElementResolver;
-use webignition\BasilResolver\StatementComponentResolver\StatementIdentifierUrlResolver;
-use webignition\BasilResolver\StatementComponentResolver\StatementValueElementResolver;
-use webignition\BasilResolver\StatementComponentResolver\StatementValueUrlResolver;
 
 class StatementResolver
 {
@@ -31,10 +29,8 @@ class StatementResolver
     public static function createResolver(): static
     {
         return new static([
-            StatementIdentifierElementResolver::createResolver(),
-            StatementValueElementResolver::createResolver(),
-            StatementValueUrlResolver::createResolver(),
-            StatementIdentifierUrlResolver::createResolver(),
+            ComponentElementResolver::createResolver(),
+            ComponentUrlResolver::createResolver(),
         ]);
     }
 
@@ -52,16 +48,24 @@ class StatementResolver
         $resolvedValue = null;
 
         foreach ($this->componentResolvers as $componentResolver) {
-            $resolvedComponent = $componentResolver->resolve($statement, $pageProvider, $identifierProvider);
+            $resolvedComponent = $componentResolver->resolve(
+                $statement->getIdentifier(),
+                $pageProvider,
+                $identifierProvider
+            );
 
-            if ($resolvedComponent instanceof ResolvedComponentInterface && $resolvedComponent->isResolved()) {
-                if (ResolvedComponentInterface::TYPE_IDENTIFIER === $resolvedComponent->getType()) {
-                    $resolvedIdentifier = $resolvedComponent->getResolved();
-                }
+            if ($resolvedComponent && $resolvedComponent->isResolved()) {
+                $resolvedIdentifier = $resolvedComponent->getResolved();
+            }
 
-                if (ResolvedComponentInterface::TYPE_VALUE === $resolvedComponent->getType()) {
-                    $resolvedValue = $resolvedComponent->getResolved();
-                }
+            $resolvedComponent = $componentResolver->resolve(
+                $statement->getValue(),
+                $pageProvider,
+                $identifierProvider
+            );
+
+            if ($resolvedComponent && $resolvedComponent->isResolved()) {
+                $resolvedValue = $resolvedComponent->getResolved();
             }
         }
 

@@ -7,12 +7,10 @@ namespace webignition\BasilResolver\StatementComponentResolver;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\PageProperty\PageProperty;
-use webignition\BasilModels\StatementInterface;
 use webignition\BasilResolver\ImportedUrlResolver;
 use webignition\BasilResolver\ResolvedComponent;
-use webignition\BasilResolver\ResolvedComponentInterface;
 
-class StatementIdentifierUrlResolver implements StatementComponentResolverInterface
+class ComponentUrlResolver implements StatementComponentResolverInterface
 {
     public function __construct(
         private ImportedUrlResolver $importedUrlResolver
@@ -21,7 +19,7 @@ class StatementIdentifierUrlResolver implements StatementComponentResolverInterf
 
     public static function createResolver(): self
     {
-        return new StatementIdentifierUrlResolver(
+        return new ComponentUrlResolver(
             ImportedUrlResolver::createResolver()
         );
     }
@@ -30,23 +28,20 @@ class StatementIdentifierUrlResolver implements StatementComponentResolverInterf
      * @throws UnknownItemException
      */
     public function resolve(
-        StatementInterface $statement,
+        ?string $data,
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
-    ): ?ResolvedComponentInterface {
-        $identifier = $statement->getIdentifier();
+    ): ?ResolvedComponent {
+        if (is_string($data) && false === PageProperty::is($data)) {
+            $resolvedData = $this->importedUrlResolver->resolve($data, $pageProvider);
 
-        if (is_string($identifier) && false === PageProperty::is($identifier)) {
-            $resolvedIdentifier = $this->importedUrlResolver->resolve($identifier, $pageProvider);
-
-            if ($identifier !== $resolvedIdentifier) {
-                $resolvedIdentifier = '"' . $resolvedIdentifier . '"';
+            if ($data !== $resolvedData) {
+                $resolvedData = '"' . $resolvedData . '"';
             }
 
             return new ResolvedComponent(
-                ResolvedComponentInterface::TYPE_IDENTIFIER,
-                $identifier,
-                $resolvedIdentifier
+                $data,
+                $resolvedData
             );
         }
 

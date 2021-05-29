@@ -6,8 +6,7 @@ namespace webignition\BasilResolver\StatementComponentResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\StatementInterface;
-use webignition\BasilResolver\ResolvedComponentInterface;
+use webignition\BasilResolver\ResolvedComponent;
 use webignition\BasilResolver\UnknownElementException;
 use webignition\BasilResolver\UnknownPageElementException;
 
@@ -19,8 +18,8 @@ interface StatementComponentResolverInterface
      * @throws UnknownItemException
      */
     public function resolve(
-        StatementInterface $statement,
+        ?string $data,
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
-    ): ?ResolvedComponentInterface;
+    ): ?ResolvedComponent;
 }
