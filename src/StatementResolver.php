@@ -12,6 +12,11 @@ use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\EncapsulatingStatementInterface;
 use webignition\BasilModels\StatementInterface;
+use webignition\BasilResolver\StatementComponentResolver\StatementComponentResolverInterface;
+use webignition\BasilResolver\StatementComponentResolver\StatementIdentifierElementResolver;
+use webignition\BasilResolver\StatementComponentResolver\StatementIdentifierUrlResolver;
+use webignition\BasilResolver\StatementComponentResolver\StatementValueElementResolver;
+use webignition\BasilResolver\StatementComponentResolver\StatementValueUrlResolver;
 
 class StatementResolver
 {

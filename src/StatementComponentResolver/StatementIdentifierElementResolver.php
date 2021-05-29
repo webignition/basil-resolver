@@ -2,13 +2,18 @@
 
 declare(strict_types=1);
 
-namespace webignition\BasilResolver;
+namespace webignition\BasilResolver\StatementComponentResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\StatementInterface;
+use webignition\BasilResolver\ElementResolver;
+use webignition\BasilResolver\ResolvedComponent;
+use webignition\BasilResolver\ResolvedComponentInterface;
+use webignition\BasilResolver\UnknownElementException;
+use webignition\BasilResolver\UnknownPageElementException;
 
-class StatementValueElementResolver implements StatementComponentResolverInterface
+class StatementIdentifierElementResolver implements StatementComponentResolverInterface
 {
     public function __construct(
         private ElementResolver $elementResolver
@@ -17,7 +22,7 @@ class StatementValueElementResolver implements StatementComponentResolverInterfa
 
     public static function createResolver(): self
     {
-        return new StatementValueElementResolver(
+        return new StatementIdentifierElementResolver(
             ElementResolver::createResolver()
         );
     }
@@ -32,12 +37,12 @@ class StatementValueElementResolver implements StatementComponentResolverInterfa
         ProviderInterface $pageProvider,
         ProviderInterface $identifierProvider
     ): ?ResolvedComponentInterface {
-        $value = $statement->getValue();
-        if (is_string($value)) {
+        $identifier = $statement->getIdentifier();
+        if (is_string($identifier)) {
             return new ResolvedComponent(
-                ResolvedComponentInterface::TYPE_VALUE,
-                $value,
-                $this->elementResolver->resolve($value, $pageProvider, $identifierProvider)
+                ResolvedComponentInterface::TYPE_IDENTIFIER,
+                $identifier,
+                $this->elementResolver->resolve($identifier, $pageProvider, $identifierProvider)
             );
         }
 
