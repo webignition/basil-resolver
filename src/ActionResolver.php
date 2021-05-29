@@ -10,16 +10,6 @@ use webignition\BasilModels\Action\ActionInterface;
 
 class ActionResolver extends AbstractStatementResolver
 {
-    public static function createResolver(): ActionResolver
-    {
-        return new ActionResolver([
-            StatementIdentifierElementResolver::createResolver(),
-            StatementValueElementResolver::createResolver(),
-            StatementValueUrlResolver::createResolver(),
-            StatementIdentifierUrlResolver::createResolver(),
-        ]);
-    }
-
     /**
      * @throws UnknownElementException
      * @throws UnknownPageElementException

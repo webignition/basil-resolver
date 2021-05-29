@@ -7,20 +7,9 @@ namespace webignition\BasilResolver;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
-use webignition\BasilModels\StatementInterface;
 
 class AssertionResolver extends AbstractStatementResolver
 {
-    public static function createResolver(): AssertionResolver
-    {
-        return new AssertionResolver([
-            StatementIdentifierElementResolver::createResolver(),
-            StatementValueElementResolver::createResolver(),
-            StatementValueUrlResolver::createResolver(),
-            StatementIdentifierUrlResolver::createResolver(),
-        ]);
-    }
-
     /**
      * @throws UnknownElementException
      * @throws UnknownPageElementException

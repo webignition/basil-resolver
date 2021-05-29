@@ -18,9 +18,19 @@ abstract class AbstractStatementResolver
     /**
      * @param StatementComponentResolverInterface[] $componentResolvers
      */
-    public function __construct(
+    final public function __construct(
         private array $componentResolvers
     ) {
+    }
+
+    public static function createResolver(): static
+    {
+        return new static([
+            StatementIdentifierElementResolver::createResolver(),
+            StatementValueElementResolver::createResolver(),
+            StatementValueUrlResolver::createResolver(),
+            StatementIdentifierUrlResolver::createResolver(),
+        ]);
     }
 
     /**
