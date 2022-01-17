@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
 use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\AssertionInterface;
@@ -41,8 +42,8 @@ class StatementResolver
      */
     public function resolve(
         StatementInterface $statement,
-        ProviderInterface $pageProvider,
-        ProviderInterface $identifierProvider
+        PageProviderInterface $pageProvider,
+        IdentifierProviderInterface $identifierProvider
     ): StatementInterface {
         $resolvedIdentifier = null;
         $resolvedValue = null;

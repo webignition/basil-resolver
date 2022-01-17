@@ -9,7 +9,7 @@ use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInte
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
@@ -40,7 +40,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveSuccess(
         StepInterface $step,
-        ProviderInterface $pageProvider,
+        PageProviderInterface $pageProvider,
         StepInterface $expectedStep
     ): void {
         $resolvedStep = $this->resolver->resolve($step, $pageProvider);
@@ -49,7 +49,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveForPendingImportResolutionStepDataProvider(): array
     {
@@ -72,7 +72,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveActionsAndAssertionsDataProvider(): array
     {
@@ -348,7 +348,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveIdentifierCollectionDataProvider(): array
     {
@@ -436,7 +436,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolvePageElementReferencesThrowsException(
         StepInterface $step,
-        ProviderInterface $pageProvider,
+        PageProviderInterface $pageProvider,
         ContextAwareExceptionInterface $expectedException
     ): void {
         try {
@@ -449,7 +449,7 @@ class StepResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolvePageElementReferencesThrowsExceptionDataProvider(): array
     {

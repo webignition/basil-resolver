@@ -7,13 +7,15 @@ namespace webignition\BasilResolver\Tests\Unit;
 use webignition\BasilContextAwareException\ContextAwareExceptionInterface;
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
 use webignition\BasilModelProvider\DataSet\DataSetProvider;
+use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\DataSet\EmptyDataSetProvider;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModelProvider\Step\EmptyStepProvider;
 use webignition\BasilModelProvider\Step\StepProvider;
+use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\Action\Action;
 use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\Assertion;
@@ -49,9 +51,9 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveSuccess(
         TestInterface $test,
-        ProviderInterface $pageProvider,
-        ProviderInterface $stepProvider,
-        ProviderInterface $dataSetProvider,
+        PageProviderInterface $pageProvider,
+        StepProviderInterface $stepProvider,
+        DataSetProviderInterface $dataSetProvider,
         TestInterface $expectedTest
     ): void {
         $resolvedTest = $this->resolver->resolve($test, $pageProvider, $stepProvider, $dataSetProvider);
@@ -60,7 +62,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveSuccessDataProvider(): array
     {
@@ -524,9 +526,9 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveThrowsException(
         TestInterface $test,
-        ProviderInterface $pageProvider,
-        ProviderInterface $stepProvider,
-        ProviderInterface $dataSetProvider,
+        PageProviderInterface $pageProvider,
+        StepProviderInterface $stepProvider,
+        DataSetProviderInterface $dataSetProvider,
         ContextAwareExceptionInterface $expectedException
     ): void {
         try {
@@ -539,7 +541,7 @@ class TestResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveThrowsExceptionDataProvider(): array
     {

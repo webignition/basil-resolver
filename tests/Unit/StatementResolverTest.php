@@ -6,9 +6,10 @@ namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\Identifier\EmptyIdentifierProvider;
 use webignition\BasilModelProvider\Identifier\IdentifierProvider;
+use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
 use webignition\BasilModelProvider\Page\EmptyPageProvider;
 use webignition\BasilModelProvider\Page\PageProvider;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\Action\ResolvedAction;
 use webignition\BasilModels\Assertion\ResolvedAssertion;
 use webignition\BasilModels\Page\Page;
@@ -44,7 +45,7 @@ class StatementResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveAlreadyResolvedActionDataProvider(): array
     {
@@ -61,7 +62,7 @@ class StatementResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveAlreadyResolvedAssertionDataProvider(): array
     {
@@ -83,8 +84,8 @@ class StatementResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveIsResolved(
         StatementInterface $statement,
-        ProviderInterface $pageProvider,
-        ProviderInterface $identifierProvider,
+        PageProviderInterface $pageProvider,
+        IdentifierProviderInterface $identifierProvider,
         StatementInterface $expectedStatement
     ): void {
         $resolvedAssertion = $this->resolver->resolve($statement, $pageProvider, $identifierProvider);
@@ -93,7 +94,7 @@ class StatementResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveIsResolvedActionDataProvider(): array
     {
@@ -240,7 +241,7 @@ class StatementResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveIsResolvedAssertionDataProvider(): array
     {

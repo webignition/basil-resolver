@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace webignition\BasilResolver;
 
 use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInterface;
+use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
+use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\Step\StepCollection;
 use webignition\BasilModels\Step\StepInterface;
 use webignition\BasilModels\Test\Test;
@@ -38,9 +40,9 @@ class TestResolver
      */
     public function resolve(
         TestInterface $test,
-        ProviderInterface $pageProvider,
-        ProviderInterface $stepProvider,
-        ProviderInterface $dataSetProvider
+        PageProviderInterface $pageProvider,
+        StepProviderInterface $stepProvider,
+        DataSetProviderInterface $dataSetProvider
     ): TestInterface {
         $testName = $test->getPath();
 

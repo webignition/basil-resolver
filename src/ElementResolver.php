@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\AttributeReference\AttributeReference;
 use webignition\BasilModels\ElementReference\ElementReference;
 use webignition\BasilModels\PageElementReference\PageElementReference;
@@ -31,8 +32,8 @@ class ElementResolver
      */
     public function resolve(
         string $value,
-        ProviderInterface $pageProvider,
-        ProviderInterface $identifierProvider
+        PageProviderInterface $pageProvider,
+        IdentifierProviderInterface $identifierProvider
     ): string {
         try {
             if (ElementReference::is($value)) {
