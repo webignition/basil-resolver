@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace webignition\BasilResolver;
 
+use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\Exception\UnknownItemException;
-use webignition\BasilModelProvider\ProviderInterface;
-use webignition\BasilModels\DataSet\DataSetCollectionInterface;
+use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\Step\StepInterface;
 
 class StepImportResolver
@@ -24,7 +24,7 @@ class StepImportResolver
      */
     public function resolveStepImport(
         StepInterface $step,
-        ProviderInterface $stepProvider,
+        StepProviderInterface $stepProvider,
         array $handledImportNames = []
     ): StepInterface {
         $importName = $step->getImportName();
@@ -57,17 +57,13 @@ class StepImportResolver
      */
     public function resolveDataProviderImport(
         StepInterface $step,
-        ProviderInterface $dataSetProvider
+        DataSetProviderInterface $dataSetProvider
     ): StepInterface {
         $dataProviderImportName = $step->getDataImportName();
 
         if (null !== $dataProviderImportName) {
-            $dataSetCollection = $dataSetProvider->find($dataProviderImportName);
-
-            if ($dataSetCollection instanceof DataSetCollectionInterface) {
-                $step = $step->withData($dataSetProvider->find($dataProviderImportName));
-                $step = $step->removeDataImportName();
-            }
+            $step = $step->withData($dataSetProvider->find($dataProviderImportName));
+            $step = $step->removeDataImportName();
         }
 
         return $step;

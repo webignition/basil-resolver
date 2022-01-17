@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fc6e4649800acfe7747144ab363c2f8",
+    "content-hash": "57cfe6454472034be8053f046712ede4",
     "packages": [
         {
             "name": "webignition/basil-model-provider",
-            "version": "0.9",
+            "version": "0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webignition/basil-model-provider.git",
-                "reference": "ec37fb3495a774325cf896591d0791d8615a094e"
+                "reference": "9ff69bff2f5a3a3f940483aa2da4559e88f2d46e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webignition/basil-model-provider/zipball/ec37fb3495a774325cf896591d0791d8615a094e",
-                "reference": "ec37fb3495a774325cf896591d0791d8615a094e",
+                "url": "https://api.github.com/repos/webignition/basil-model-provider/zipball/9ff69bff2f5a3a3f940483aa2da4559e88f2d46e",
+                "reference": "9ff69bff2f5a3a3f940483aa2da4559e88f2d46e",
                 "shasum": ""
             },
             "require": {
@@ -26,10 +26,9 @@
                 "webignition/php-basil-context-aware-exception": ">=0.4,<1"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.77",
+                "phpstan/phpstan": "^1.4",
                 "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.5",
-                "symplify/easy-coding-standard": "^9.1"
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "autoload": {
@@ -51,9 +50,9 @@
             "homepage": "https://github.com/webignition/basil-model-provider",
             "support": {
                 "issues": "https://github.com/webignition/basil-model-provider/issues",
-                "source": "https://github.com/webignition/basil-model-provider/tree/0.9"
+                "source": "https://github.com/webignition/basil-model-provider/tree/0.10"
             },
-            "time": "2021-02-19T12:46:49+00:00"
+            "time": "2022-01-17T15:51:54+00:00"
         },
         {
             "name": "webignition/basil-models",
@@ -675,16 +674,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.88",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "464d1a81af49409c41074aa6640ed0c4cbd9bb68"
+                "reference": "72b04d97b5e6e60a081f17c416fef35bd521120b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/464d1a81af49409c41074aa6640ed0c4cbd9bb68",
-                "reference": "464d1a81af49409c41074aa6640ed0c4cbd9bb68",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/72b04d97b5e6e60a081f17c416fef35bd521120b",
+                "reference": "72b04d97b5e6e60a081f17c416fef35bd521120b",
                 "shasum": ""
             },
             "require": {
@@ -700,7 +699,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -715,11 +714,15 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.88"
+                "source": "https://github.com/phpstan/phpstan/tree/1.4.0"
             },
             "funding": [
                 {
                     "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
                     "type": "github"
                 },
                 {
@@ -731,7 +734,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-17T12:24:49+00:00"
+            "time": "2022-01-14T15:58:47+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

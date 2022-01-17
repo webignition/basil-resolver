@@ -8,7 +8,7 @@ use webignition\BasilContextAwareException\ExceptionContext\ExceptionContextInte
 use webignition\BasilModelProvider\Exception\UnknownItemException;
 use webignition\BasilModelProvider\Identifier\EmptyIdentifierProvider;
 use webignition\BasilModelProvider\Identifier\IdentifierProvider;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilModels\Action\ActionInterface;
 use webignition\BasilModels\Assertion\AssertionInterface;
 use webignition\BasilModels\Step\StepInterface;
@@ -34,7 +34,7 @@ class StepResolver
      * @throws UnknownPageElementException
      * @throws UnknownItemException
      */
-    public function resolve(StepInterface $step, ProviderInterface $pageProvider): StepInterface
+    public function resolve(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
     {
         if ($step->requiresImportResolution()) {
             return $step;
@@ -51,7 +51,7 @@ class StepResolver
      * @throws UnknownPageElementException
      * @throws UnknownItemException
      */
-    private function resolveIdentifiers(StepInterface $step, ProviderInterface $pageProvider): StepInterface
+    private function resolveIdentifiers(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
     {
         $resolvedIdentifiers = [];
         $identifierProvider = new EmptyIdentifierProvider();
@@ -72,7 +72,7 @@ class StepResolver
      * @throws UnknownPageElementException
      * @throws UnknownItemException
      */
-    private function resolveActions(StepInterface $step, ProviderInterface $pageProvider): StepInterface
+    private function resolveActions(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
     {
         $resolvedActions = [];
         $identifierProvider = new IdentifierProvider($step->getIdentifiers());
@@ -108,7 +108,7 @@ class StepResolver
      * @throws UnknownPageElementException
      * @throws UnknownItemException
      */
-    private function resolveAssertions(StepInterface $step, ProviderInterface $pageProvider): StepInterface
+    private function resolveAssertions(StepInterface $step, PageProviderInterface $pageProvider): StepInterface
     {
         $resolvedAssertions = [];
         $identifierProvider = new IdentifierProvider($step->getIdentifiers());

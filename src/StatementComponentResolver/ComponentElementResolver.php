@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace webignition\BasilResolver\StatementComponentResolver;
 
 use webignition\BasilModelProvider\Exception\UnknownItemException;
-use webignition\BasilModelProvider\ProviderInterface;
+use webignition\BasilModelProvider\Identifier\IdentifierProviderInterface;
+use webignition\BasilModelProvider\Page\PageProviderInterface;
 use webignition\BasilResolver\ElementResolver;
 use webignition\BasilResolver\ResolvedComponent;
 use webignition\BasilResolver\UnknownElementException;
@@ -32,8 +33,8 @@ class ComponentElementResolver implements StatementComponentResolverInterface
      */
     public function resolve(
         ?string $data,
-        ProviderInterface $pageProvider,
-        ProviderInterface $identifierProvider
+        PageProviderInterface $pageProvider,
+        IdentifierProviderInterface $identifierProvider
     ): ?ResolvedComponent {
         if (is_string($data)) {
             return new ResolvedComponent(

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace webignition\BasilResolver\Tests\Unit;
 
 use webignition\BasilModelProvider\DataSet\DataSetProvider;
+use webignition\BasilModelProvider\DataSet\DataSetProviderInterface;
 use webignition\BasilModelProvider\DataSet\EmptyDataSetProvider;
-use webignition\BasilModelProvider\ProviderInterface;
 use webignition\BasilModelProvider\Step\EmptyStepProvider;
 use webignition\BasilModelProvider\Step\StepProvider;
+use webignition\BasilModelProvider\Step\StepProviderInterface;
 use webignition\BasilModels\DataSet\DataSetCollection;
 use webignition\BasilModels\Step\Step;
 use webignition\BasilModels\Step\StepInterface;
@@ -34,7 +35,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveStepImport(
         StepInterface $step,
-        ProviderInterface $stepProvider,
+        StepProviderInterface $stepProvider,
         StepInterface $expectedStep
     ): void {
         $resolvedStep = $this->resolver->resolveStepImport($step, $stepProvider);
@@ -43,7 +44,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveStepImportDataProvider(): array
     {
@@ -148,7 +149,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveDataProviderImport(
         StepInterface $step,
-        ProviderInterface $dataSetProvider,
+        DataSetProviderInterface $dataSetProvider,
         StepInterface $expectedStep
     ): void {
         $resolvedStep = $this->resolver->resolveDataProviderImport(
@@ -160,7 +161,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveDataProviderImportDataProvider(): array
     {
@@ -213,7 +214,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveStepImportThrowsCircularReferenceException(
         StepInterface $step,
-        ProviderInterface $stepProvider,
+        StepProviderInterface $stepProvider,
         string $expectedCircularImportName
     ): void {
         try {
@@ -226,7 +227,7 @@ class StepImportResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveStepImportThrowsCircularReferenceExceptionDataProvider(): array
     {

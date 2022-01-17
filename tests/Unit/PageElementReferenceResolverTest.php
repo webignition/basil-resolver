@@ -35,7 +35,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveIsResolvedDataProvider(): array
     {
@@ -84,7 +84,7 @@ class PageElementReferenceResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function resolveThrowsUnknownPageElementExceptionDataProvider(): array
     {
