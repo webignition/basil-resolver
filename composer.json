@@ -38,16 +38,16 @@
         ]
     },
     "require": {
-        "php": ">=8",
-        "webignition/basil-model-provider": ">=0.10,<1",
-        "webignition/basil-models": ">=0.59,<1",
-        "webignition/php-basil-context-aware-exception": ">=0.4,<1"
+        "php": "^8.0|^8.1",
+        "webignition/basil-model-provider": ">=0.11,<1",
+        "webignition/basil-models": ">=0.60,<1",
+        "webignition/php-basil-context-aware-exception": ">=0.5,<1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
-        "webignition/basil-parser": "^0.26.0"
+        "webignition/basil-parser": "^1.2"
     },
     "config": {
         "sort-packages": true
