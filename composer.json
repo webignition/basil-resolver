@@ -22,8 +22,8 @@
         }
     },
     "scripts": {
-        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer fix --dry-run --verbose --show-progress none",
-        "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --diff",
+        "cs-fixer-dry-run": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --dry-run --verbose --show-progress none",
+        "cs-fixer-fix": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --diff",
         "cs-phpcs": "./vendor/bin/phpcs",
         "cs": [
             "@cs-fixer-dry-run",
@@ -44,7 +44,6 @@
         "webignition/php-basil-context-aware-exception": ">=0.4,<1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
         "phpstan/phpstan": "^0.12.88",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.6",
