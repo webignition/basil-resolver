@@ -38,7 +38,7 @@
         ]
     },
     "require": {
-        "php": "^8.0|^8.1",
+        "php": "^8.1",
         "webignition/basil-model-provider": ">=0.11,<1",
         "webignition/basil-models": ">=0.60,<1",
         "webignition/php-basil-context-aware-exception": ">=0.5,<1"
