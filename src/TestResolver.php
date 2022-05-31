@@ -58,6 +58,9 @@ class TestResolver
 
         $resolvedSteps = [];
         foreach ($test->getSteps() as $stepName => $step) {
+            // todo: can remove in #79
+            $stepName = is_string($stepName) ? $stepName : null;
+
             if ($step instanceof StepInterface) {
                 try {
                     $resolvedStep = $this->stepImportResolver->resolveStepImport($step, $stepProvider);
@@ -75,8 +78,8 @@ class TestResolver
                     UnknownPageElementException $contextAwareException
                 ) {
                     $contextAwareException->applyExceptionContext([
-                        ExceptionContextInterface::KEY_TEST_NAME => $testName,
-                        ExceptionContextInterface::KEY_STEP_NAME => $stepName,
+                        ExceptionContextInterface::KEY_TEST_NAME => (string) $testName,
+                        ExceptionContextInterface::KEY_STEP_NAME => (string) $stepName,
                     ]);
 
                     throw $contextAwareException;
